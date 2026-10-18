@@ -1,0 +1,1335 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Lanchonete Sabor Brasileiro — Cachorro-Quente e Costelão Brasileiro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&display=swap" rel="stylesheet" />
+    <style>
+      :root{
+        --bg:#fff8f0; --bg2:#fdeedd; --surface:#ffffff; --surface2:#fdf1e2;
+        --ink:#241a12; --ink2:#6f5b49; --line:#ecd9c3;
+        --ember:#d9480f; --ember-dark:#b23a08; --flame:#f08c00; --gold:#fab005;
+        --green:#2b8a3e; --green-bg:#e6f4ea; --red:#c92a2a; --red-bg:#fdecec;
+        --wa:#25d366; --wa-dark:#128c4b;
+        --shadow:0 10px 30px rgba(120,53,15,.12);
+        --radius:16px;
+      }
+      @media (prefers-color-scheme: dark){
+        :root{
+          --bg:#171008; --bg2:#20150b; --surface:#241709; --surface2:#2c1c0d;
+          --ink:#f7ead9; --ink2:#c9ab8d; --line:#453019;
+          --ember:#f76707; --ember-dark:#ffa94d; --flame:#ffa94d; --gold:#ffd43b;
+          --green:#51cf66; --green-bg:#14301c; --red:#ff8787; --red-bg:#3d1717;
+          --shadow:0 10px 30px rgba(0,0,0,.45);
+        }
+      }
+      *{box-sizing:border-box}
+      html{scroll-behavior:smooth}
+      body{margin:0;font-family:'Archivo',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+      img{max-width:100%;display:block}
+      button{font-family:inherit;cursor:pointer}
+      input,select,textarea{font-family:inherit;font-size:1rem;color:var(--ink)}
+      .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+      .topbar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+      .topbar-in{display:flex;align-items:center;gap:12px;padding:12px 0;flex-wrap:wrap}
+      .brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.15rem;letter-spacing:.2px}
+      .brand .mark{width:38px;height:38px;border-radius:10px;background:var(--ember);color:#fff;display:grid;place-items:center;flex:none}
+      .brand .mark svg{width:22px;height:22px}
+      .brand small{display:block;font-weight:600;color:var(--ink2);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+      .langswitch{display:flex;background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:3px;margin-left:auto}
+      .langswitch button{border:0;background:transparent;padding:7px 13px;border-radius:999px;font-weight:800;font-size:.85rem;color:var(--ink2)}
+      .langswitch button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+      .viewswitch{display:flex;background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:4px}
+      .viewswitch button{border:0;background:transparent;padding:9px 18px;border-radius:999px;font-weight:700;font-size:.92rem;color:var(--ink2)}
+      .viewswitch button[aria-pressed="true"]{background:var(--ember);color:#fff;box-shadow:0 3px 10px rgba(217,72,15,.35)}
+      .badge-dot{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--red);color:#fff;font-size:.72rem;font-weight:800;margin-left:6px;vertical-align:2px}
+      .hero{padding:44px 0 10px}
+      .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center}
+      .hero h1{font-family:'Archivo Black','Archivo',sans-serif;font-size:clamp(2.1rem,5.4vw,3.6rem);line-height:1.04;margin:0 0 14px;text-transform:uppercase}
+      .hero h1 .hot{color:var(--ember)}
+      .hero p.lead{font-size:1.13rem;color:var(--ink2);margin:0 0 22px;max-width:34rem}
+      .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+      .btn{display:inline-flex;align-items:center;gap:9px;border:0;border-radius:12px;padding:13px 22px;font-weight:800;font-size:1rem;text-decoration:none;transition:transform .15s ease, box-shadow .15s ease}
+      .btn:active{transform:scale(.97)}
+      .btn-wa{background:var(--wa);color:#08351a;box-shadow:0 8px 20px rgba(37,211,102,.35)}
+      .btn-ghost{background:var(--surface);color:var(--ink);border:1.5px solid var(--line)}
+      .hero-photo{border-radius:22px;overflow:hidden;box-shadow:var(--shadow);position:relative}
+      .hero-photo img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+      .hero-photo .tag{position:absolute;left:14px;bottom:14px;background:rgba(20,10,4,.82);color:#ffd8a8;padding:8px 14px;border-radius:999px;font-weight:700;font-size:.86rem}
+      .hero-points{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+      .hero-points span{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:.88rem;font-weight:600;color:var(--ink2)}
+      .menu-sec{padding:38px 0 6px}
+      .menu-head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+      .menu-head h2{font-family:'Archivo Black','Archivo',sans-serif;font-size:clamp(1.5rem,3.4vw,2.1rem);margin:0;text-transform:uppercase}
+      .menu-head .rule{flex:1;border-top:3px dotted var(--line)}
+      .menu-sub{color:var(--ink2);margin:0 0 20px}
+      .dish-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+      .dish{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(120,53,15,.05)}
+      .dish img{width:100%;aspect-ratio:16/10;object-fit:cover}
+      .dish-body{padding:16px;display:flex;flex-direction:column;gap:6px;flex:1}
+      .dish h3{margin:0;font-size:1.08rem}
+      .dish p{margin:0;color:var(--ink2);font-size:.93rem;flex:1}
+      .dish-foot{display:flex;align-items:center;justify-content:space-between;margin-top:10px;gap:10px}
+      .price{font-weight:900;font-size:1.22rem;color:var(--ember)}
+      .price small{font-size:.75rem;color:var(--ink2);font-weight:600}
+      .order-btn{background:var(--wa);color:#08351a;border:0;border-radius:10px;padding:9px 15px;font-weight:800;font-size:.9rem;display:inline-flex;align-items:center;gap:7px;text-decoration:none}
+      .dish-list{display:grid;grid-template-columns:1fr 1fr;gap:6px 34px}
+      .dish-row{display:flex;gap:12px;padding:13px 2px;border-bottom:1px dashed var(--line);align-items:baseline}
+      .dish-row .info{flex:1}
+      .dish-row h3{margin:0;font-size:1.02rem}
+      .dish-row p{margin:2px 0 0;color:var(--ink2);font-size:.9rem}
+      .dish-row .price{white-space:nowrap}
+      .dish-row .order-btn{padding:7px 12px;font-size:.84rem;align-self:center}
+      .capture{margin:46px 0 10px;background:var(--ember);border-radius:24px;padding:36px 30px;color:#fff;position:relative;overflow:hidden}
+      .capture h2{font-family:'Archivo Black','Archivo',sans-serif;text-transform:uppercase;font-size:clamp(1.5rem,3.6vw,2.2rem);margin:0 0 8px;line-height:1.1}
+      .capture p{margin:0 0 20px;color:#ffe8d6;max-width:36rem}
+      .capture form{display:flex;gap:10px;flex-wrap:wrap}
+      .capture input{flex:1 1 200px;border:0;border-radius:12px;padding:14px 16px;background:#fff;color:#241a12}
+      .capture button{background:#241a12;color:#ffe8d6;border:0;border-radius:12px;padding:14px 24px;font-weight:800}
+      .capture .fine{font-size:.82rem;color:#ffd8a8;margin-top:12px}
+      .capture .ok{display:none;background:#2b8a3e;color:#fff;border-radius:12px;padding:14px 18px;font-weight:700}
+      .capture.done form,.capture.done .fine{display:none}
+      .capture.done .ok{display:block}
+      .info-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin:44px 0}
+      .info-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+      .info-card h3{margin:0 0 6px;font-size:1rem}
+      .info-card p{margin:0;color:var(--ink2);font-size:.94rem}
+      footer{border-top:1px solid var(--line);padding:24px 0 90px;color:var(--ink2);font-size:.9rem}
+      .wa-float{position:fixed;right:18px;bottom:18px;z-index:60;width:58px;height:58px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 10px 26px rgba(18,140,75,.45);text-decoration:none}
+      .wa-float svg{width:30px;height:30px;fill:#08351a}
+      .panel-head{padding:34px 0 4px}
+      .panel-head h1{font-family:'Archivo Black','Archivo',sans-serif;text-transform:uppercase;font-size:clamp(1.7rem,4vw,2.4rem);margin:0 0 6px}
+      .panel-head p{color:var(--ink2);margin:0}
+      .subtabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 24px}
+      .subtabs button{border:1.5px solid var(--line);background:var(--surface);color:var(--ink2);border-radius:999px;padding:10px 18px;font-weight:700}
+      .subtabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+      .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:0 2px 8px rgba(120,53,15,.05)}
+      .card h2{margin:0 0 4px;font-size:1.25rem}
+      .card .hint{color:var(--ink2);font-size:.92rem;margin:0 0 16px}
+      .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:20px}
+      .kpi{background:var(--surface2);border:1px solid var(--line);border-radius:14px;padding:16px}
+      .kpi .lbl{font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+      .kpi .val{font-size:1.55rem;font-weight:900;margin-top:4px}
+      .kpi .val.in{color:var(--green)} .kpi .val.out{color:var(--red)}
+      form.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:6px}
+      .field label{display:block;font-size:.82rem;font-weight:700;margin-bottom:5px;color:var(--ink2)}
+      .field input,.field select,.field textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;background:var(--bg);color:var(--ink)}
+      .field textarea{resize:vertical}
+      .btn-ember{background:var(--ember);color:#fff;border:0;border-radius:11px;padding:12px 20px;font-weight:800}
+      .btn-soft{background:var(--surface2);color:var(--ink);border:1.5px solid var(--line);border-radius:11px;padding:11px 18px;font-weight:700}
+      .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+      table{width:100%;border-collapse:collapse;font-size:.95rem}
+      th{text-align:left;font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;color:var(--ink2);padding:10px 8px;border-bottom:2px solid var(--line)}
+      td{padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+      td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+      .pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.78rem;font-weight:800}
+      .pill.in{background:var(--green-bg);color:var(--green)}
+      .pill.out{background:var(--red-bg);color:var(--red)}
+      .pill.low{background:var(--red-bg);color:var(--red)}
+      .pill.okk{background:var(--green-bg);color:var(--green)}
+      .row-del{background:none;border:0;color:var(--red);font-weight:700;font-size:.86rem;padding:4px}
+      .empty{padding:26px;text-align:center;color:var(--ink2);border:1.5px dashed var(--line);border-radius:12px}
+      .table-scroll{overflow-x:auto}
+      .stock-actions{display:flex;gap:6px;align-items:center}
+      .stock-actions button{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--line);background:var(--bg);font-weight:900;font-size:1rem;line-height:1}
+      .stock-actions .qty{min-width:34px;text-align:center;font-weight:800}
+      .toast{position:fixed;left:50%;transform:translateX(-50%) translateY(20px);bottom:24px;background:var(--ink);color:var(--bg);padding:13px 20px;border-radius:12px;font-weight:700;opacity:0;pointer-events:none;transition:all .25s ease;z-index:80;max-width:92vw;text-align:center}
+      .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+      .month-row{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-bottom:16px}
+      .hidden{display:none !important}
+      /* ---------- pedido / checkout ---------- */
+      .order-sec{margin:46px 0 10px;background:var(--surface);border:1.5px solid var(--line);border-radius:24px;padding:30px;box-shadow:var(--shadow)}
+      .order-sec h2{font-family:'Archivo Black','Archivo',sans-serif;text-transform:uppercase;font-size:clamp(1.4rem,3.4vw,2rem);margin:0 0 6px;line-height:1.1}
+      .order-sec .sub{color:var(--ink2);margin:0 0 18px;max-width:38rem}
+      .cart-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+      .cart-row .cinfo{flex:1;min-width:150px}
+      .cart-row .cinfo strong{display:block}
+      .cart-row .cinfo span{color:var(--ink2);font-size:.88rem}
+      .cart-row .cline{font-weight:900;white-space:nowrap}
+      .qty-ctrl{display:flex;gap:6px;align-items:center}
+      .qty-ctrl button{width:30px;height:30px;border-radius:8px;border:1.5px solid var(--line);background:var(--bg);font-weight:900;font-size:1rem;line-height:1}
+      .qty-ctrl .qty{min-width:30px;text-align:center;font-weight:800}
+      .order-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+      .payopts{display:flex;gap:8px;flex-wrap:wrap}
+      .payopts button{border:1.5px solid var(--line);background:var(--bg);color:var(--ink2);border-radius:999px;padding:10px 18px;font-weight:800}
+      .payopts button[aria-pressed="true"]{background:var(--ember);border-color:var(--ember);color:#fff}
+      .order-total{display:flex;align-items:baseline;justify-content:space-between;margin-top:20px;padding-top:16px;border-top:3px dotted var(--line)}
+      .order-total .t{font-size:1.6rem;font-weight:900;color:var(--ember)}
+      .chan-title{font-weight:800;margin:20px 0 4px}
+      .chan-note{color:var(--ink2);font-size:.88rem;margin:0 0 12px;max-width:40rem}
+      .chan-btns{display:flex;gap:10px;flex-wrap:wrap}
+      .chan-btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:12px;padding:13px 20px;font-weight:800;font-size:.98rem;text-decoration:none;color:#fff}
+      .chan-btn.wa{background:var(--wa);color:#08351a}
+      .chan-btn.sms{background:#38618c}
+      .chan-btn.mail{background:var(--ink);color:var(--bg)}
+      .chan-btn.is-off{opacity:.45;filter:grayscale(.4)}
+      .cartbar{position:fixed;left:18px;bottom:18px;z-index:55;background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:13px 22px;font-weight:800;box-shadow:0 10px 26px rgba(0,0,0,.35);display:flex;gap:10px;align-items:center}
+      .cartbar .ct{color:var(--gold)}
+      /* ---------- interruptores de canal (ajustes) ---------- */
+      .tgl-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
+      .tgl-row .tgl-lbl{flex:1;font-weight:700}
+      .tgl-row .tgl-lbl small{display:block;font-weight:600;color:var(--ink2)}
+      .switch{position:relative;width:50px;height:28px;flex:none}
+      .switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+      .switch .tr{position:absolute;inset:0;background:var(--line);border-radius:999px;transition:background .2s;pointer-events:none}
+      .switch .tr::after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:var(--surface);transition:left .2s}
+      .switch input:checked + .tr{background:var(--green)}
+      .switch input:checked + .tr::after{left:25px}
+      .switch input:focus-visible + .tr{outline:2px solid var(--ember);outline-offset:2px}
+      @media (max-width:820px){
+        .order-grid{grid-template-columns:1fr}
+        .order-sec{padding:22px 18px}
+        .cartbar{left:12px;right:92px;justify-content:center}
+      }
+      @media (max-width:820px){
+        .hero-grid{grid-template-columns:1fr}
+        .dish-list{grid-template-columns:1fr}
+        .brand small{display:none}
+        .langswitch{margin-left:0;order:3}
+        .viewswitch{margin-left:auto}
+      }
+      @media (prefers-reduced-motion: reduce){
+        *{transition:none !important;scroll-behavior:auto !important}
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-in">
+        <div class="brand">
+          <span class="mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 10h16M5 10c0 5 3.5 8 7 8s7-3 7-8"/><path d="M8 10c0-3 1.8-5 4-5s4 2 4 5"/><path d="M12 5V3"/></svg>
+          </span>
+          <span><span id="brandName">Lanchonete Sabor Brasileiro</span><small id="brandSub">Cachorro-quente • Costelão • Lanches</small></span>
+        </div>
+        <nav class="langswitch" aria-label="Idioma / Language / Idioma">
+          <button data-lang="pt" aria-pressed="true">PT</button>
+          <button data-lang="en" aria-pressed="false">EN</button>
+          <button data-lang="es" aria-pressed="false">ES</button>
+        </nav>
+        <nav class="viewswitch" aria-label="Alternar entre vitrine e painel do dono">
+          <button id="tabVitrine" aria-pressed="true"><span data-i18n="vitrine">Vitrine</span></button>
+          <button id="tabPainel" aria-pressed="false"><span data-i18n="panel">Painel do Dono</span><span id="alertBadge" class="badge-dot hidden">0</span></button>
+        </nav>
+      </div>
+    </header>
+
+    <main id="viewVitrine">
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div>
+            <h1 id="heroTitle">Cachorro-quente caprichado e <span class="hot">costelão brasileiro</span> de verdade</h1>
+            <p class="lead" data-i18n="heroLead">Dog completo com molho da casa, costelão assado devagar na brasa com feijão tropeiro e farofa, lanches, porções e bebidas bem geladas — tudo sem álcool, pra família inteira.</p>
+            <div class="hero-cta">
+              <a class="btn btn-wa" id="heroWa" href="#pedido">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.2 1.1 2.3 1.5 2.6 1.6.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2.1 1c.3.2.5.3.6.4 0 .1 0 .7-.2 1.2z"/></svg>
+                <span data-i18n="heroWa">Montar meu pedido</span>
+              </a>
+              <a class="btn btn-ghost" href="#cardapio" data-i18n="heroMenu">Ver o cardápio</a>
+            </div>
+            <div class="hero-points">
+              <span data-i18n="point1">Costelão na brasa todo dia</span>
+              <span data-i18n="point2">Bebidas sem álcool</span>
+              <span data-i18n="point3">Retirada ou entrega</span>
+            </div>
+          </div>
+          <div class="hero-photo">
+            <img src="assets/hotdog.jpg" alt="Cachorro-quente brasileiro completo com frango desfiado, milho, molhos e batata palha" />
+            <span class="tag" data-i18n="heroTag">O dog mais pedido da casa</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="wrap" id="cardapio">
+        <section class="menu-sec" aria-labelledby="h-dogs">
+          <div class="menu-head"><h2 id="h-dogs" data-i18n="dogsTitle">Cachorros-quentes</h2><span class="rule"></span></div>
+          <p class="menu-sub" data-i18n="dogsSub">Montados na hora, com molho de tomate caseiro e batata palha crocante.</p>
+          <div class="dish-grid" id="gridDogs"></div>
+        </section>
+
+        <section class="menu-sec" aria-labelledby="h-costelao">
+          <div class="menu-head"><h2 id="h-costelao" data-i18n="costelaoTitle">Costelão brasileiro</h2><span class="rule"></span></div>
+          <p class="menu-sub" data-i18n="costelaoSub">Assado lentamente na brasa, desmanchando no osso — com os acompanhamentos clássicos.</p>
+          <div class="dish-grid" id="gridCostelao"></div>
+        </section>
+
+        <section class="menu-sec" aria-labelledby="h-lanches">
+          <div class="menu-head"><h2 id="h-lanches" data-i18n="lanchesTitle">Lanches e porções</h2><span class="rule"></span></div>
+          <div class="dish-grid" id="gridLanches"></div>
+        </section>
+
+        <section class="menu-sec" aria-labelledby="h-bebidas">
+          <div class="menu-head"><h2 id="h-bebidas" data-i18n="bebidasTitle">Bebidas sem álcool</h2><span class="rule"></span></div>
+          <p class="menu-sub" data-i18n="bebidasSub">Sempre bem geladas. Também vendemos os secos da casa pra levar pra casa.</p>
+          <div class="dish-list" id="listBebidas"></div>
+        </section>
+
+        <section class="order-sec" id="pedido" aria-labelledby="h-pedido">
+          <h2 id="h-pedido" data-i18n="ordTitle">Seu pedido</h2>
+          <p class="sub" data-i18n="ordSub">Toque em “Pedir” nos itens do cardápio pra montar seu pedido aqui. Depois escolha a forma de pagamento e por onde quer enviar: WhatsApp, mensagem de texto (SMS) ou e-mail.</p>
+          <div class="empty" id="cartEmpty" data-i18n="ordEmpty">Seu pedido está vazio por enquanto — escolhe um item do cardápio aqui em cima pra começar.</div>
+          <div id="cartList"></div>
+          <div class="order-grid">
+            <div class="field"><label for="ordNome" data-i18n="ordName">Seu nome</label><input type="text" id="ordNome" data-i18n-ph="ordNamePh" placeholder="Ex.: Maria" autocomplete="name" /></div>
+            <div class="field"><label for="ordObs" data-i18n="ordNotes">Observações (opcional)</label><input type="text" id="ordObs" data-i18n-ph="ordNotesPh" placeholder="Ex.: sem cebola, ponto da carne…" /></div>
+          </div>
+          <h3 class="chan-title" data-i18n="payTitle">Forma de pagamento</h3>
+          <div class="payopts" id="payOpts" role="group" aria-label="Forma de pagamento">
+            <button type="button" data-pay="cash" aria-pressed="true" data-i18n="payCash">Dinheiro</button>
+            <button type="button" data-pay="card" aria-pressed="false" data-i18n="payCard">Cartão</button>
+            <button type="button" data-pay="pix" aria-pressed="false">Pix</button>
+            <button type="button" data-pay="zelle" aria-pressed="false">Zelle</button>
+          </div>
+          <div class="order-total"><span data-i18n="ordTotalLbl">Total do pedido</span><span class="t" id="ordTotal">$0.00</span></div>
+          <h3 class="chan-title" data-i18n="chanTitle">Enviar o pedido pra lanchonete</h3>
+          <p class="chan-note" data-i18n="chanNote">O pedido abre pronto no seu aparelho, com os itens, o total e a forma de pagamento — é só confirmar o envio no app que abrir. O envio automático, sem esse toque, depende de provedor externo.</p>
+          <div class="chan-btns">
+            <a class="chan-btn wa" id="sendWa" href="#" target="_blank" rel="noopener"><span data-i18n="chanWa">Enviar por WhatsApp</span></a>
+            <a class="chan-btn sms" id="sendSms" href="#"><span data-i18n="chanSms">Enviar por SMS</span></a>
+            <a class="chan-btn mail" id="sendMail" href="#"><span data-i18n="chanMail">Enviar por e-mail</span></a>
+          </div>
+          <div class="btn-row"><button class="btn-soft" id="cartClear" type="button" data-i18n="ordClear">Limpar pedido</button></div>
+        </section>
+
+        <section class="capture" id="captura" aria-labelledby="h-captura">
+          <h2 id="h-captura" data-i18n="captureTitle">Entre pra lista e receba as ofertas primeiro</h2>
+          <p data-i18n="captureP">Deixe seu nome e e-mail e a gente te avisa das promoções do costelão, dos combos da semana e dos dias de dog em dobro — antes de todo mundo.</p>
+          <form id="captureForm">
+            <input type="text" id="capNome" data-i18n-ph="capNomePh" placeholder="Seu nome" autocomplete="name" required />
+            <input type="email" id="capEmail" data-i18n-ph="capEmailPh" placeholder="Seu e-mail" autocomplete="email" required />
+            <button type="submit" data-i18n="capBtn">Quero receber as ofertas</button>
+          </form>
+          <p class="fine" data-i18n="captureFine">Sem spam: só oferta boa da lanchonete. Sair da lista é só pedir.</p>
+          <div class="ok" id="captureOk" data-i18n="captureOk">Pronto! Você entrou pra lista — fica de olho no seu e-mail que a próxima oferta chega primeiro pra você.</div>
+        </section>
+
+        <section class="info-strip" aria-label="Informações da lanchonete">
+          <div class="info-card">
+            <h3 data-i18n="infoHoursTitle">Horário de funcionamento</h3>
+            <p id="infoHours">Segunda a sábado, das 11h às 23h.<br />Domingo, das 16h às 23h.<br />Costelão na brasa a partir das 11h30.</p>
+          </div>
+          <div class="info-card">
+            <h3 data-i18n="infoOrderTitle">Como pedir</h3>
+            <p data-i18n="infoOrderP">Toque em “Pedir” nos itens do cardápio, escolha a forma de pagamento e envie o pedido pronto pra lanchonete por WhatsApp, mensagem de texto (SMS) ou e-mail. Retirada no balcão ou entrega na região.</p>
+          </div>
+          <div class="info-card">
+            <h3 data-i18n="infoDryTitle">Secos pra levar</h3>
+            <p data-i18n="infoDryP">Batata palha, molhos da casa, farofa temperada e os ingredientes dos nossos lanches também vendem avulsos — pergunta no balcão ou pelo WhatsApp.</p>
+          </div>
+        </section>
+      </div>
+
+      <footer>
+        <div class="wrap">
+          <strong id="footName">Lanchonete Sabor Brasileiro</strong> <span data-i18n="footerDesc">— cachorro-quente, costelão brasileiro, lanches, porções e bebidas sem álcool.</span>
+        </div>
+      </footer>
+
+      <a class="wa-float" id="floatWa" href="#pedido" aria-label="Pedir / Order">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.2 1.1 2.3 1.5 2.6 1.6.3.1.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2.1 1c.3.2.5.3.6.4 0 .1 0 .7-.2 1.2z"/></svg>
+      </a>
+      <button class="cartbar hidden" id="cartBar" type="button"><span data-i18n="cartBarLbl">Ver meu pedido</span><span class="ct" id="cartBarInfo"></span></button>
+    </main>
+
+    <main id="viewPainel" class="hidden">
+      <div class="wrap">
+        <div class="panel-head">
+          <h1 data-i18n="panelTitle">Painel do Dono</h1>
+          <p data-i18n="panelSub">Financeiro, estoque e a lista de e-mails dos clientes — tudo num lugar só.</p>
+        </div>
+
+        <nav class="subtabs" aria-label="Seções do painel">
+          <button data-sub="fin" aria-pressed="true"><span data-i18n="subFin">Entradas e Saídas</span></button>
+          <button data-sub="stock" aria-pressed="false"><span data-i18n="subStock">Estoque</span></button>
+          <button data-sub="mail" aria-pressed="false"><span data-i18n="subMail">E-mails p/ Remarketing</span><span id="mailCount" class="badge-dot hidden">0</span></button>
+          <button data-sub="menu" aria-pressed="false"><span data-i18n="subMenu">Cardápio e Ajustes</span></button>
+        </nav>
+
+        <section id="sub-fin">
+          <div class="kpis">
+            <div class="kpi"><div class="lbl" data-i18n="kpiIn">Entradas do mês</div><div class="val in" id="kpiIn">$0.00</div></div>
+            <div class="kpi"><div class="lbl" data-i18n="kpiOut">Saídas do mês</div><div class="val out" id="kpiOut">$0.00</div></div>
+            <div class="kpi"><div class="lbl" data-i18n="kpiMonth">Saldo do mês</div><div class="val" id="kpiMonth">$0.00</div></div>
+            <div class="kpi"><div class="lbl" data-i18n="kpiDay">Saldo de hoje</div><div class="val" id="kpiDay">$0.00</div></div>
+          </div>
+
+          <div class="card">
+            <h2 data-i18n="finTitle">Lançar entrada ou saída</h2>
+            <p class="hint" data-i18n="finHint">Venda do balcão, delivery, compra de mercadoria, gás, aluguel — lança aqui e o saldo se atualiza na hora.</p>
+            <form class="grid" id="finForm">
+              <div class="field"><label for="fData" data-i18n="fData">Data</label><input type="date" id="fData" required /></div>
+              <div class="field"><label for="fTipo" data-i18n="fTipo">Tipo</label>
+                <select id="fTipo"></select></div>
+              <div class="field" style="grid-column:span 2"><label for="fDesc" data-i18n="fDesc">Descrição</label><input type="text" id="fDesc" data-i18n-ph="fDescPh" placeholder="Ex.: Vendas do balcão / Compra de salsicha" required /></div>
+              <div class="field"><label for="fCat" data-i18n="fCat">Categoria</label>
+                <select id="fCat"></select></div>
+              <div class="field"><label for="fValor" data-i18n="fValor">Valor ($)</label><input type="number" id="fValor" min="0.01" step="0.01" placeholder="0.00" required /></div>
+              <div class="field"><label for="fPag" data-i18n="fPag">Pagamento</label>
+                <select id="fPag"></select></div>
+            </form>
+            <div class="btn-row">
+              <button class="btn-ember" id="finAdd" type="button" data-i18n="finAdd">Adicionar lançamento</button>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:18px">
+            <div class="month-row">
+              <div class="field"><label for="fMes" data-i18n="finMonthLbl">Mês exibido</label><input type="month" id="fMes" /></div>
+              <button class="btn-soft" id="finCsv" type="button" data-i18n="finCsv">Baixar planilha (CSV)</button>
+            </div>
+            <div class="table-scroll">
+              <table aria-label="Lançamentos do mês">
+                <thead><tr><th data-i18n="thDate">Data</th><th data-i18n="thDesc">Descrição</th><th data-i18n="thCat">Categoria</th><th data-i18n="thPay">Pagamento</th><th data-i18n="thType">Tipo</th><th class="num" data-i18n="thValue">Valor</th><th></th></tr></thead>
+                <tbody id="finBody"></tbody>
+              </table>
+            </div>
+            <div class="empty" id="finEmpty" data-i18n="finEmpty">Nenhum lançamento neste mês ainda. Lança a primeira venda ou despesa no formulário acima.</div>
+          </div>
+        </section>
+
+        <section id="sub-stock" class="hidden">
+          <div class="card">
+            <h2 data-i18n="stockTitle">Estoque — secos e bebidas sem álcool</h2>
+            <p class="hint" data-i18n="stockHint">Usa os botões + e − quando vender ou repor. Quando a quantidade chega no mínimo, o item aparece em alerta aqui e no topo do painel.</p>
+            <div class="table-scroll">
+              <table aria-label="Estoque">
+                <thead><tr><th data-i18n="thItem">Item</th><th data-i18n="thGroup">Grupo</th><th data-i18n="thUnit">Unidade</th><th class="num" data-i18n="thQty">Qtd.</th><th class="num" data-i18n="thMin">Mínimo</th><th data-i18n="thStatus">Situação</th><th></th></tr></thead>
+                <tbody id="stockBody"></tbody>
+              </table>
+            </div>
+            <h3 style="margin:22px 0 10px;font-size:1.02rem" data-i18n="stockAddTitle">Adicionar item ao estoque</h3>
+            <form class="grid" id="stockForm">
+              <div class="field" style="grid-column:span 2"><label for="sNome" data-i18n="sNome">Item</label><input type="text" id="sNome" data-i18n-ph="sNomePh" placeholder="Ex.: Pão de cachorro-quente" required /></div>
+              <div class="field"><label for="sGrupo" data-i18n="sGrupo">Grupo</label>
+                <select id="sGrupo"></select></div>
+              <div class="field"><label for="sUn" data-i18n="sUn">Unidade</label><input type="text" id="sUn" data-i18n-ph="sUnPh" placeholder="pct, cx, un, kg…" required /></div>
+              <div class="field"><label for="sQtd" data-i18n="sQtd">Quantidade</label><input type="number" id="sQtd" min="0" step="1" value="0" required /></div>
+              <div class="field"><label for="sMin" data-i18n="sMinLbl">Mínimo (alerta)</label><input type="number" id="sMin" min="0" step="1" value="1" required /></div>
+            </form>
+            <div class="btn-row"><button class="btn-ember" id="stockAdd" type="button" data-i18n="stockAdd">Adicionar item</button></div>
+          </div>
+        </section>
+
+        <section id="sub-mail" class="hidden">
+          <div class="card">
+            <h2 data-i18n="mailTitle">Lista de e-mails dos clientes</h2>
+            <p class="hint" data-i18n="mailHint">Quem se cadastra na vitrine cai aqui automaticamente. Usa a lista pra mandar as ofertas da semana e trazer o cliente de volta.</p>
+            <div class="btn-row" style="margin:0 0 16px">
+              <button class="btn-ember" id="mailSend" type="button" data-i18n="mailSend">Enviar campanha pra lista toda</button>
+              <button class="btn-soft" id="mailCopy" type="button" data-i18n="mailCopy">Copiar todos os e-mails</button>
+              <button class="btn-soft" id="mailCsv" type="button" data-i18n="mailCsv">Baixar lista (CSV)</button>
+            </div>
+            <div class="field" style="margin-bottom:16px">
+              <label for="mailMsg" data-i18n="mailMsgLbl">Mensagem da campanha (aceita {nome} pro nome do cliente)</label>
+              <textarea id="mailMsg" rows="4"></textarea>
+            </div>
+            <div class="table-scroll">
+              <table aria-label="E-mails capturados">
+                <thead><tr><th data-i18n="thName">Nome</th><th data-i18n="thEmail">E-mail</th><th data-i18n="thOrigin">Origem</th><th data-i18n="thDate2">Data</th><th></th></tr></thead>
+                <tbody id="mailBody"></tbody>
+              </table>
+            </div>
+            <div class="empty" id="mailEmpty" data-i18n="mailEmpty">Nenhum e-mail capturado ainda. O formulário fica na vitrine, logo abaixo do cardápio — e você também pode cadastrar um cliente aqui embaixo.</div>
+            <h3 style="margin:22px 0 10px;font-size:1.02rem" data-i18n="mailManualTitle">Cadastrar cliente manualmente</h3>
+            <form class="grid" id="mailForm">
+              <div class="field"><label for="mNome" data-i18n="mNome">Nome</label><input type="text" id="mNome" data-i18n-ph="mNomePh" placeholder="Nome do cliente" required /></div>
+              <div class="field"><label for="mEmail" data-i18n="mEmail">E-mail</label><input type="email" id="mEmail" placeholder="cliente@email.com" required /></div>
+            </form>
+            <div class="btn-row"><button class="btn-ember" id="mailAdd" type="button" data-i18n="mailAdd">Adicionar à lista</button></div>
+          </div>
+        </section>
+
+        <section id="sub-menu" class="hidden">
+          <div class="card">
+            <h2 data-i18n="setTitle">Dados da lanchonete</h2>
+            <p class="hint" data-i18n="setHint">É pra esses contatos que os pedidos da vitrine são enviados. Mudou aqui, muda no site inteiro. Os campos começam vazios: preencha só os canais que for usar.</p>
+            <form class="grid">
+              <div class="field" style="grid-column:span 2"><label for="setNome" data-i18n="setNome">Nome da lanchonete</label><input type="text" id="setNome" value="Lanchonete Sabor Brasileiro" /></div>
+              <div class="field"><label for="setWa" data-i18n="setWa">WhatsApp de pedidos (com código do país)</label><input type="tel" id="setWa" data-i18n-ph="setWaPh" placeholder="Ex.: 1 555 123 4567" /></div>
+              <div class="field"><label for="setSms" data-i18n="setSms">Celular pra pedidos por SMS (com código do país)</label><input type="tel" id="setSms" data-i18n-ph="setSmsPh" placeholder="Ex.: 1 555 123 4567" /></div>
+              <div class="field"><label for="setOrderMail" data-i18n="setOrderMail">E-mail pra receber pedidos</label><input type="email" id="setOrderMail" data-i18n-ph="setOrderMailPh" placeholder="pedidos@exemplo.com" /></div>
+              <div class="field"><label for="setHours" data-i18n="setHours">Horário (texto da vitrine)</label><input type="text" id="setHours" value="" /></div>
+            </form>
+            <h3 style="margin:20px 0 4px;font-size:1.02rem" data-i18n="chanTglTitle">Canais de recebimento de pedidos</h3>
+            <p class="hint" data-i18n="chanTglHint">Ligue ou desligue cada canal. Canal desligado some dos botões de envio da vitrine; canal ligado sem contato preenchido avisa o cliente ao tocar.</p>
+            <div class="tgl-row"><span class="tgl-lbl">WhatsApp<small data-i18n="tglWaSub">Pedido abre pronto no WhatsApp do cliente, endereçado ao número acima</small></span><label class="switch"><input type="checkbox" id="tglWa" checked /><span class="tr"></span></label></div>
+            <div class="tgl-row"><span class="tgl-lbl"><span data-i18n="tglSmsName">Mensagem de texto (SMS)</span><small data-i18n="tglSmsSub">Pedido abre pronto no app de mensagens do cliente, pro número acima</small></span><label class="switch"><input type="checkbox" id="tglSms" checked /><span class="tr"></span></label></div>
+            <div class="tgl-row"><span class="tgl-lbl">E-mail<small data-i18n="tglMailSub">Pedido abre pronto no e-mail do cliente, pro endereço acima</small></span><label class="switch"><input type="checkbox" id="tglMail" checked /><span class="tr"></span></label></div>
+            <p class="hint" style="margin-top:14px" data-i18n="setNote">Nesses três canais o pedido abre pronto no aparelho do cliente e ele confirma o envio; o envio automático sem toque depende de provedor/hospedagem externa.</p>
+            <div class="btn-row"><button class="btn-ember" id="setSave" type="button" data-i18n="setSave">Aplicar dados</button></div>
+          </div>
+
+          <div class="card" style="margin-top:18px">
+            <h2 data-i18n="priceTitle">Preços do cardápio</h2>
+            <p class="hint" data-i18n="priceHint">Edita o preço e ele atualiza na vitrine na mesma hora. Deixa 0 pra mostrar “sob consulta”.</p>
+            <div id="priceEditor"></div>
+            <div class="btn-row"><button class="btn-ember" id="priceSave" type="button" data-i18n="priceSave">Aplicar preços</button></div>
+          </div>
+        </section>
+
+        <div style="height:60px"></div>
+      </div>
+    </main>
+
+    <div class="toast" id="toast" role="status"></div>
+    <script>
+      /* ==================== IDIOMAS ==================== */
+      var LANG = 'pt';
+      var I18N = {
+        pt: {
+          brandSub: "Cachorro-quente • Costelão • Lanches", docSuffix: "Cachorro-Quente e Costelão Brasileiro",
+          heroTitle: 'Cachorro-quente caprichado e <span class="hot">costelão brasileiro</span> de verdade',
+          vitrine: "Vitrine", panel: "Painel do Dono",
+          heroLead: "Dog completo com molho da casa, costelão assado devagar na brasa com feijão tropeiro e farofa, lanches, porções e bebidas bem geladas — tudo sem álcool, pra família inteira.",
+          heroWa: "Montar meu pedido", heroMenu: "Ver o cardápio",
+          point1: "Costelão na brasa todo dia", point2: "Bebidas sem álcool", point3: "Retirada ou entrega",
+          heroTag: "O dog mais pedido da casa",
+          dogsTitle: "Cachorros-quentes", dogsSub: "Montados na hora, com molho de tomate caseiro e batata palha crocante.",
+          costelaoTitle: "Costelão brasileiro", costelaoSub: "Assado lentamente na brasa, desmanchando no osso — com os acompanhamentos clássicos.",
+          lanchesTitle: "Lanches e porções",
+          bebidasTitle: "Bebidas sem álcool", bebidasSub: "Sempre bem geladas. Também vendemos os secos da casa pra levar pra casa.",
+          orderBtn: "Pedir", priceAsk: "sob consulta",
+          ordTitle: "Seu pedido",
+          ordSub: "Toque em “Pedir” nos itens do cardápio pra montar seu pedido aqui. Depois escolha a forma de pagamento e por onde quer enviar: WhatsApp, mensagem de texto (SMS) ou e-mail.",
+          ordEmpty: "Seu pedido está vazio por enquanto — escolhe um item do cardápio aqui em cima pra começar.",
+          ordName: "Seu nome", ordNamePh: "Ex.: Maria",
+          ordNotes: "Observações (opcional)", ordNotesPh: "Ex.: sem cebola, ponto da carne…",
+          payTitle: "Forma de pagamento", payCash: "Dinheiro", payCard: "Cartão",
+          ordTotalLbl: "Total do pedido",
+          chanTitle: "Enviar o pedido pra lanchonete",
+          chanNote: "O pedido abre pronto no seu aparelho, com os itens, o total e a forma de pagamento — é só confirmar o envio no app que abrir. O envio automático, sem esse toque, depende de provedor externo.",
+          chanWa: "Enviar por WhatsApp", chanSms: "Enviar por SMS", chanMail: "Enviar por e-mail",
+          ordClear: "Limpar pedido", cartBarLbl: "Ver meu pedido",
+          captureTitle: "Entre pra lista e receba as ofertas primeiro",
+          captureP: "Deixe seu nome e e-mail e a gente te avisa das promoções do costelão, dos combos da semana e dos dias de dog em dobro — antes de todo mundo.",
+          capNomePh: "Seu nome", capEmailPh: "Seu e-mail", capBtn: "Quero receber as ofertas",
+          captureFine: "Sem spam: só oferta boa da lanchonete. Sair da lista é só pedir.",
+          captureOk: "Pronto! Você entrou pra lista — fica de olho no seu e-mail que a próxima oferta chega primeiro pra você.",
+          infoHoursTitle: "Horário de funcionamento", infoOrderTitle: "Como pedir",
+          infoOrderP: "Toque em “Pedir” nos itens do cardápio, escolha a forma de pagamento e envie o pedido pronto pra lanchonete por WhatsApp, mensagem de texto (SMS) ou e-mail. Retirada no balcão ou entrega na região.",
+          infoDryTitle: "Secos pra levar",
+          infoDryP: "Batata palha, molhos da casa, farofa temperada e os ingredientes dos nossos lanches também vendem avulsos — pergunta no balcão ou pelo WhatsApp.",
+          footerDesc: "— cachorro-quente, costelão brasileiro, lanches, porções e bebidas sem álcool.",
+          panelTitle: "Painel do Dono", panelSub: "Financeiro, estoque e a lista de e-mails dos clientes — tudo num lugar só.",
+          subFin: "Entradas e Saídas", subStock: "Estoque", subMail: "E-mails p/ Remarketing", subMenu: "Cardápio e Ajustes",
+          kpiIn: "Entradas do mês", kpiOut: "Saídas do mês", kpiMonth: "Saldo do mês", kpiDay: "Saldo de hoje",
+          finTitle: "Lançar entrada ou saída",
+          finHint: "Venda do balcão, delivery, compra de mercadoria, gás, aluguel — lança aqui e o saldo se atualiza na hora.",
+          fData: "Data", fTipo: "Tipo", fDesc: "Descrição", fDescPh: "Ex.: Vendas do balcão / Compra de salsicha",
+          fCat: "Categoria", fValor: "Valor ($)", fPag: "Pagamento", finAdd: "Adicionar lançamento",
+          finMonthLbl: "Mês exibido", finCsv: "Baixar planilha (CSV)",
+          thDate: "Data", thDesc: "Descrição", thCat: "Categoria", thPay: "Pagamento", thType: "Tipo", thValue: "Valor",
+          finEmpty: "Nenhum lançamento neste mês ainda. Lança a primeira venda ou despesa no formulário acima.",
+          typeIn: "Entrada", typeOut: "Saída", del: "Excluir", removeBtn: "Remover",
+          stockTitle: "Estoque — secos e bebidas sem álcool",
+          stockHint: "Usa os botões + e − quando vender ou repor. Quando a quantidade chega no mínimo, o item aparece em alerta aqui e no topo do painel.",
+          thItem: "Item", thGroup: "Grupo", thUnit: "Unidade", thQty: "Qtd.", thMin: "Mínimo", thStatus: "Situação",
+          stockAddTitle: "Adicionar item ao estoque",
+          sNome: "Item", sNomePh: "Ex.: Pão de cachorro-quente", sGrupo: "Grupo", sUn: "Unidade", sUnPh: "pct, cx, un, kg…",
+          sQtd: "Quantidade", sMinLbl: "Mínimo (alerta)", stockAdd: "Adicionar item",
+          lowPill: "Repor agora",
+          mailTitle: "Lista de e-mails dos clientes",
+          mailHint: "Quem se cadastra na vitrine cai aqui automaticamente. Usa a lista pra mandar as ofertas da semana e trazer o cliente de volta.",
+          mailSend: "Enviar campanha pra lista toda", mailCopy: "Copiar todos os e-mails", mailCsv: "Baixar lista (CSV)",
+          mailMsgLbl: "Mensagem da campanha (aceita {nome} pro nome do cliente)",
+          thName: "Nome", thEmail: "E-mail", thOrigin: "Origem", thDate2: "Data",
+          mailEmpty: "Nenhum e-mail capturado ainda. O formulário fica na vitrine, logo abaixo do cardápio — e você também pode cadastrar um cliente aqui embaixo.",
+          mailManualTitle: "Cadastrar cliente manualmente",
+          mNome: "Nome", mNomePh: "Nome do cliente", mEmail: "E-mail", mailAdd: "Adicionar à lista",
+          originStore: "Vitrine", originManual: "Manual",
+          setTitle: "Dados da lanchonete",
+          setHint: "É pra esses contatos que os pedidos da vitrine são enviados. Mudou aqui, muda no site inteiro. Os campos começam vazios: preencha só os canais que for usar.",
+          setNome: "Nome da lanchonete",
+          setWa: "WhatsApp de pedidos (com código do país)", setWaPh: "Ex.: 1 555 123 4567",
+          setSms: "Celular pra pedidos por SMS (com código do país)", setSmsPh: "Ex.: 1 555 123 4567",
+          setOrderMail: "E-mail pra receber pedidos", setOrderMailPh: "pedidos@exemplo.com",
+          setHours: "Horário (texto da vitrine)",
+          chanTglTitle: "Canais de recebimento de pedidos",
+          chanTglHint: "Ligue ou desligue cada canal. Canal desligado some dos botões de envio da vitrine; canal ligado sem contato preenchido avisa o cliente ao tocar.",
+          tglWaSub: "Pedido abre pronto no WhatsApp do cliente, endereçado ao número acima",
+          tglSmsName: "Mensagem de texto (SMS)", tglSmsSub: "Pedido abre pronto no app de mensagens do cliente, pro número acima",
+          tglMailSub: "Pedido abre pronto no e-mail do cliente, pro endereço acima",
+          setNote: "Nesses três canais o pedido abre pronto no aparelho do cliente e ele confirma o envio; o envio automático sem toque depende de provedor/hospedagem externa.",
+          setSave: "Aplicar dados",
+          priceTitle: "Preços do cardápio",
+          priceHint: "Edita o preço e ele atualiza na vitrine na mesma hora. Deixa 0 pra mostrar “sob consulta”.",
+          priceSave: "Aplicar preços",
+          ordHead: "NOVO PEDIDO", ordItemsLbl: "Itens:", ordTotalLine: "Total:", ordPayLine: "Forma de pagamento:", ordNameLine: "Nome:", ordNotesLine: "Obs:",
+          mailSubject: "Novo pedido — ",
+          addedToCart: "adicionado ao pedido.",
+          cartCleared: "Pedido limpo.",
+          emptyCartToast: "Seu pedido está vazio — toca em “Pedir” num item do cardápio primeiro.",
+          chanOffMsg: "Este canal está desligado no momento. Tenta outro canal de envio.",
+          chanNotSetWa: "A lanchonete ainda não configurou o WhatsApp de pedidos. Tenta outro canal.",
+          chanNotSetSms: "A lanchonete ainda não configurou o número pra SMS. Tenta outro canal.",
+          chanNotSetMail: "A lanchonete ainda não configurou o e-mail de pedidos. Tenta outro canal.",
+          openingChan: "Abrindo o pedido pronto… é só confirmar o envio.",
+          capDup: "Esse e-mail já está na lista — você já recebe as ofertas!",
+          capOk: "E-mail cadastrado: ", capOk2: " entrou pra lista de ofertas.",
+          finFill: "Preenche data, descrição e um valor maior que zero.",
+          finAdded: " de ", finAdded2: " lançada.", finDeleted: "Lançamento excluído.",
+          finNoData: "Ainda não há lançamentos pra exportar.", finCsvOk: "Planilha baixada: entradas-e-saidas.csv",
+          stockFill: "Dá um nome e uma unidade pro item (pct, cx, kg…).",
+          stockAdded: "Item adicionado ao estoque.", stockRemoved: "Item removido do estoque.",
+          mailFill: "Preenche nome e um e-mail válido.", mailDup: "Esse e-mail já está na lista.",
+          mailAdded: " entrou pra lista de remarketing.", mailRemoved: "E-mail removido da lista.",
+          mailListEmpty: "A lista ainda está vazia.", mailListEmpty2: "A lista ainda está vazia — captura o primeiro e-mail na vitrine.",
+          mailCopied: " e-mails copiados — cola no seu envio de campanha.", mailCopyFail: "Não consegui copiar automaticamente.",
+          mailCopyAlt: "Navegador sem cópia automática — usa o botão de baixar a lista.",
+          mailCsvOk: "Lista baixada: lista-de-emails.csv",
+          mailCampaignSubject: "Oferta da semana — ", mailOpening: "Abrindo seu e-mail com a lista em cópia oculta…",
+          pricesOk: "Preços atualizados na vitrine.",
+          settingsOk: "Dados aplicados — os pedidos agora vão pros canais configurados."
+        },
+        en: {
+          brandSub: "Hot Dogs • Brazilian Ribs • Snacks", docSuffix: "Hot Dogs & Brazilian Ribs",
+          heroTitle: 'Loaded hot dogs and real <span class="hot">Brazilian ribs</span>',
+          vitrine: "Storefront", panel: "Owner Panel",
+          heroLead: "Loaded dogs with house sauce, Brazilian ribs slow-grilled over charcoal with tropeiro beans and farofa, burgers, sides and ice-cold drinks — all alcohol-free, for the whole family.",
+          heroWa: "Build my order", heroMenu: "See the menu",
+          point1: "Ribs grilled fresh every day", point2: "Alcohol-free drinks", point3: "Pickup or delivery",
+          heroTag: "Our best-selling dog",
+          dogsTitle: "Hot Dogs", dogsSub: "Made fresh to order, with homemade tomato sauce and crispy shoestring potatoes.",
+          costelaoTitle: "Brazilian Ribs", costelaoSub: "Slow-grilled over charcoal until fall-off-the-bone — with the classic sides.",
+          lanchesTitle: "Burgers & Sides",
+          bebidasTitle: "Alcohol-Free Drinks", bebidasSub: "Always ice cold. Our dry goods are also sold to take home.",
+          orderBtn: "Add", priceAsk: "ask for price",
+          ordTitle: "Your Order",
+          ordSub: "Tap “Add” on menu items to build your order here. Then choose how you will pay and how you want to send it: WhatsApp, text message (SMS) or email.",
+          ordEmpty: "Your order is empty for now — pick an item from the menu above to get started.",
+          ordName: "Your name", ordNamePh: "E.g.: Mary",
+          ordNotes: "Notes (optional)", ordNotesPh: "E.g.: no onions, how well done…",
+          payTitle: "Payment method", payCash: "Cash", payCard: "Card",
+          ordTotalLbl: "Order total",
+          chanTitle: "Send the order to the shop",
+          chanNote: "The order opens ready to send on your device, with the items, the total and the payment method — just confirm sending in the app that opens. Fully automatic sending, without that tap, requires an external provider.",
+          chanWa: "Send via WhatsApp", chanSms: "Send via SMS", chanMail: "Send via email",
+          ordClear: "Clear order", cartBarLbl: "View my order",
+          captureTitle: "Join the list and get the deals first",
+          captureP: "Leave your name and email and we will let you know about ribs specials, weekly combos and double-dog days — before everyone else.",
+          capNomePh: "Your name", capEmailPh: "Your email", capBtn: "I want the deals",
+          captureFine: "No spam: only good deals from the shop. Leaving the list is just asking.",
+          captureOk: "You are in! Watch your inbox — the next deal reaches you first.",
+          infoHoursTitle: "Opening hours", infoOrderTitle: "How to order",
+          infoOrderP: "Tap “Add” on menu items, choose your payment method and send the ready-made order to the shop by WhatsApp, text message (SMS) or email. Pickup at the counter or delivery in the area.",
+          infoDryTitle: "Dry goods to go",
+          infoDryP: "Shoestring potatoes, house sauces, seasoned farofa and our sandwich ingredients are also sold separately — just ask at the counter or on WhatsApp.",
+          footerDesc: "— hot dogs, Brazilian ribs, burgers, sides and alcohol-free drinks.",
+          panelTitle: "Owner Panel", panelSub: "Finances, stock and the customer email list — all in one place.",
+          subFin: "Income & Expenses", subStock: "Stock", subMail: "Remarketing Emails", subMenu: "Menu & Settings",
+          kpiIn: "Income this month", kpiOut: "Expenses this month", kpiMonth: "Balance this month", kpiDay: "Balance today",
+          finTitle: "Add income or expense",
+          finHint: "Counter sale, delivery, supplies, gas, rent — log it here and the balance updates right away.",
+          fData: "Date", fTipo: "Type", fDesc: "Description", fDescPh: "E.g.: Counter sales / Sausage purchase",
+          fCat: "Category", fValor: "Amount ($)", fPag: "Payment", finAdd: "Add entry",
+          finMonthLbl: "Month shown", finCsv: "Download spreadsheet (CSV)",
+          thDate: "Date", thDesc: "Description", thCat: "Category", thPay: "Payment", thType: "Type", thValue: "Amount",
+          finEmpty: "No entries this month yet. Log the first sale or expense in the form above.",
+          typeIn: "Income", typeOut: "Expense", del: "Delete", removeBtn: "Remove",
+          stockTitle: "Stock — dry goods & alcohol-free drinks",
+          stockHint: "Use the + and − buttons when you sell or restock. When the quantity hits the minimum, the item shows an alert here and at the top of the panel.",
+          thItem: "Item", thGroup: "Group", thUnit: "Unit", thQty: "Qty.", thMin: "Minimum", thStatus: "Status",
+          stockAddTitle: "Add an item to stock",
+          sNome: "Item", sNomePh: "E.g.: Hot dog buns", sGrupo: "Group", sUn: "Unit", sUnPh: "pack, box, unit, kg…",
+          sQtd: "Quantity", sMinLbl: "Minimum (alert)", stockAdd: "Add item",
+          lowPill: "Restock now",
+          mailTitle: "Customer email list",
+          mailHint: "Anyone who signs up on the storefront lands here automatically. Use the list to send the weekly deals and bring customers back.",
+          mailSend: "Send campaign to the whole list", mailCopy: "Copy all emails", mailCsv: "Download list (CSV)",
+          mailMsgLbl: "Campaign message (use {nome} for the customer name)",
+          thName: "Name", thEmail: "Email", thOrigin: "Source", thDate2: "Date",
+          mailEmpty: "No emails captured yet. The form is on the storefront, right below the menu — and you can also add a customer below.",
+          mailManualTitle: "Add a customer manually",
+          mNome: "Name", mNomePh: "Customer name", mEmail: "Email", mailAdd: "Add to list",
+          originStore: "Storefront", originManual: "Manual",
+          setTitle: "Shop details",
+          setHint: "Storefront orders are sent to these contacts. Change them here and the whole site updates. The fields start empty: fill in only the channels you will use.",
+          setNome: "Shop name",
+          setWa: "Order WhatsApp (with country code)", setWaPh: "E.g.: 1 555 123 4567",
+          setSms: "Phone for SMS orders (with country code)", setSmsPh: "E.g.: 1 555 123 4567",
+          setOrderMail: "Email to receive orders", setOrderMailPh: "orders@example.com",
+          setHours: "Hours (storefront text)",
+          chanTglTitle: "Order receiving channels",
+          chanTglHint: "Turn each channel on or off. A channel that is off disappears from the storefront send buttons; a channel that is on but has no contact filled in warns the customer when tapped.",
+          tglWaSub: "The order opens ready in the customer WhatsApp, addressed to the number above",
+          tglSmsName: "Text message (SMS)", tglSmsSub: "The order opens ready in the customer messaging app, to the number above",
+          tglMailSub: "The order opens ready in the customer email, to the address above",
+          setNote: "On all three channels the order opens ready on the customer device and they confirm the send; fully automatic sending without that tap requires an external provider/hosting.",
+          setSave: "Apply details",
+          priceTitle: "Menu prices",
+          priceHint: "Edit a price and it updates on the storefront right away. Leave 0 to show “ask for price”.",
+          priceSave: "Apply prices",
+          ordHead: "NEW ORDER", ordItemsLbl: "Items:", ordTotalLine: "Total:", ordPayLine: "Payment method:", ordNameLine: "Name:", ordNotesLine: "Notes:",
+          mailSubject: "New order — ",
+          addedToCart: "added to your order.",
+          cartCleared: "Order cleared.",
+          emptyCartToast: "Your order is empty — tap “Add” on a menu item first.",
+          chanOffMsg: "This channel is turned off right now. Try another send channel.",
+          chanNotSetWa: "The shop has not set up an order WhatsApp yet. Try another channel.",
+          chanNotSetSms: "The shop has not set up an SMS number yet. Try another channel.",
+          chanNotSetMail: "The shop has not set up an order email yet. Try another channel.",
+          openingChan: "Opening your ready-made order… just confirm the send.",
+          capDup: "That email is already on the list — you already get the deals!",
+          capOk: "Email saved: ", capOk2: " joined the deals list.",
+          finFill: "Fill in the date, a description and an amount above zero.",
+          finAdded: " of ", finAdded2: " logged.", finDeleted: "Entry deleted.",
+          finNoData: "There are no entries to export yet.", finCsvOk: "Spreadsheet downloaded: entradas-e-saidas.csv",
+          stockFill: "Give the item a name and a unit (pack, box, kg…).",
+          stockAdded: "Item added to stock.", stockRemoved: "Item removed from stock.",
+          mailFill: "Fill in a name and a valid email.", mailDup: "That email is already on the list.",
+          mailAdded: " joined the remarketing list.", mailRemoved: "Email removed from the list.",
+          mailListEmpty: "The list is still empty.", mailListEmpty2: "The list is still empty — capture the first email on the storefront.",
+          mailCopied: " emails copied — paste them into your campaign send.", mailCopyFail: "Could not copy automatically.",
+          mailCopyAlt: "This browser has no automatic copy — use the download list button.",
+          mailCsvOk: "List downloaded: lista-de-emails.csv",
+          mailCampaignSubject: "Deal of the week — ", mailOpening: "Opening your email app with the list in BCC…",
+          pricesOk: "Prices updated on the storefront.",
+          settingsOk: "Details applied — orders now go to the configured channels."
+        },
+        es: {
+          brandSub: "Perritos • Costillar • Snacks", docSuffix: "Perritos Calientes y Costillar Brasileño",
+          heroTitle: 'Perritos bien cargados y <span class="hot">costillar brasileño</span> de verdad',
+          vitrine: "Vitrina", panel: "Panel del Dueño",
+          heroLead: "Perrito completo con salsa de la casa, costillar asado lentamente a la brasa con frijoles tropeiro y farofa, hamburguesas, porciones y bebidas bien frías — todo sin alcohol, para toda la familia.",
+          heroWa: "Armar mi pedido", heroMenu: "Ver el menú",
+          point1: "Costillar a la brasa todos los días", point2: "Bebidas sin alcohol", point3: "Retiro o entrega",
+          heroTag: "El perrito más pedido de la casa",
+          dogsTitle: "Perritos calientes", dogsSub: "Armados al momento, con salsa de tomate casera y papas paja crujientes.",
+          costelaoTitle: "Costillar brasileño", costelaoSub: "Asado lentamente a la brasa, deshaciéndose en el hueso — con los acompañamientos clásicos.",
+          lanchesTitle: "Hamburguesas y porciones",
+          bebidasTitle: "Bebidas sin alcohol", bebidasSub: "Siempre bien frías. También vendemos los productos secos de la casa para llevar.",
+          orderBtn: "Pedir", priceAsk: "consultar precio",
+          ordTitle: "Tu pedido",
+          ordSub: "Toca “Pedir” en los ítems del menú para armar tu pedido aquí. Después elige la forma de pago y por dónde quieres enviarlo: WhatsApp, mensaje de texto (SMS) o correo electrónico.",
+          ordEmpty: "Tu pedido está vacío por ahora — elige un ítem del menú de arriba para empezar.",
+          ordName: "Tu nombre", ordNamePh: "Ej.: María",
+          ordNotes: "Observaciones (opcional)", ordNotesPh: "Ej.: sin cebolla, punto de la carne…",
+          payTitle: "Forma de pago", payCash: "Efectivo", payCard: "Tarjeta",
+          ordTotalLbl: "Total del pedido",
+          chanTitle: "Enviar el pedido al local",
+          chanNote: "El pedido se abre listo en tu dispositivo, con los ítems, el total y la forma de pago — solo confirma el envío en la app que se abra. El envío automático, sin ese toque, depende de un proveedor externo.",
+          chanWa: "Enviar por WhatsApp", chanSms: "Enviar por SMS", chanMail: "Enviar por correo",
+          ordClear: "Limpiar pedido", cartBarLbl: "Ver mi pedido",
+          captureTitle: "Únete a la lista y recibe las ofertas primero",
+          captureP: "Deja tu nombre y correo y te avisamos de las promociones del costillar, los combos de la semana y los días de perrito doble — antes que a todos.",
+          capNomePh: "Tu nombre", capEmailPh: "Tu correo", capBtn: "Quiero recibir las ofertas",
+          captureFine: "Sin spam: solo buenas ofertas del local. Salir de la lista es solo pedirlo.",
+          captureOk: "¡Listo! Ya estás en la lista — revisa tu correo que la próxima oferta te llega primero.",
+          infoHoursTitle: "Horario de atención", infoOrderTitle: "Cómo pedir",
+          infoOrderP: "Toca “Pedir” en los ítems del menú, elige la forma de pago y envía el pedido listo al local por WhatsApp, mensaje de texto (SMS) o correo electrónico. Retiro en el local o entrega en la zona.",
+          infoDryTitle: "Productos secos para llevar",
+          infoDryP: "Papas paja, salsas de la casa, farofa sazonada y los ingredientes de nuestras hamburguesas también se venden por separado — pregunta en el local o por WhatsApp.",
+          footerDesc: "— perritos calientes, costillar brasileño, hamburguesas, porciones y bebidas sin alcohol.",
+          panelTitle: "Panel del Dueño", panelSub: "Finanzas, inventario y la lista de correos de los clientes — todo en un solo lugar.",
+          subFin: "Entradas y Salidas", subStock: "Inventario", subMail: "Correos p/ Remarketing", subMenu: "Menú y Ajustes",
+          kpiIn: "Entradas del mes", kpiOut: "Salidas del mes", kpiMonth: "Saldo del mes", kpiDay: "Saldo de hoy",
+          finTitle: "Registrar entrada o salida",
+          finHint: "Venta del local, delivery, compra de mercadería, gas, alquiler — regístralo aquí y el saldo se actualiza al instante.",
+          fData: "Fecha", fTipo: "Tipo", fDesc: "Descripción", fDescPh: "Ej.: Ventas del local / Compra de salchichas",
+          fCat: "Categoría", fValor: "Valor ($)", fPag: "Pago", finAdd: "Agregar registro",
+          finMonthLbl: "Mes mostrado", finCsv: "Descargar planilla (CSV)",
+          thDate: "Fecha", thDesc: "Descripción", thCat: "Categoría", thPay: "Pago", thType: "Tipo", thValue: "Valor",
+          finEmpty: "Todavía no hay registros este mes. Registra la primera venta o gasto en el formulario de arriba.",
+          typeIn: "Entrada", typeOut: "Salida", del: "Eliminar", removeBtn: "Quitar",
+          stockTitle: "Inventario — secos y bebidas sin alcohol",
+          stockHint: "Usa los botones + y − cuando vendas o repongas. Cuando la cantidad llega al mínimo, el ítem aparece en alerta aquí y arriba del panel.",
+          thItem: "Ítem", thGroup: "Grupo", thUnit: "Unidad", thQty: "Cant.", thMin: "Mínimo", thStatus: "Situación",
+          stockAddTitle: "Agregar ítem al inventario",
+          sNome: "Ítem", sNomePh: "Ej.: Pan de perrito", sGrupo: "Grupo", sUn: "Unidad", sUnPh: "paq, caja, un, kg…",
+          sQtd: "Cantidad", sMinLbl: "Mínimo (alerta)", stockAdd: "Agregar ítem",
+          lowPill: "Reponer ahora",
+          mailTitle: "Lista de correos de los clientes",
+          mailHint: "Quien se registra en la vitrina llega aquí automáticamente. Usa la lista para enviar las ofertas de la semana y hacer que el cliente vuelva.",
+          mailSend: "Enviar campaña a toda la lista", mailCopy: "Copiar todos los correos", mailCsv: "Descargar lista (CSV)",
+          mailMsgLbl: "Mensaje de la campaña (acepta {nome} para el nombre del cliente)",
+          thName: "Nombre", thEmail: "Correo", thOrigin: "Origen", thDate2: "Fecha",
+          mailEmpty: "Todavía no se capturó ningún correo. El formulario está en la vitrina, justo debajo del menú — y también puedes registrar un cliente aquí abajo.",
+          mailManualTitle: "Registrar cliente manualmente",
+          mNome: "Nombre", mNomePh: "Nombre del cliente", mEmail: "Correo", mailAdd: "Agregar a la lista",
+          originStore: "Vitrina", originManual: "Manual",
+          setTitle: "Datos del local",
+          setHint: "Los pedidos de la vitrina se envían a estos contactos. Cambias aquí y cambia en todo el sitio. Los campos empiezan vacíos: completa solo los canales que vayas a usar.",
+          setNome: "Nombre del local",
+          setWa: "WhatsApp de pedidos (con código de país)", setWaPh: "Ej.: 1 555 123 4567",
+          setSms: "Celular para pedidos por SMS (con código de país)", setSmsPh: "Ej.: 1 555 123 4567",
+          setOrderMail: "Correo para recibir pedidos", setOrderMailPh: "pedidos@ejemplo.com",
+          setHours: "Horario (texto de la vitrina)",
+          chanTglTitle: "Canales de recepción de pedidos",
+          chanTglHint: "Activa o desactiva cada canal. El canal desactivado desaparece de los botones de envío de la vitrina; el canal activo sin contacto cargado avisa al cliente al tocarlo.",
+          tglWaSub: "El pedido se abre listo en el WhatsApp del cliente, dirigido al número de arriba",
+          tglSmsName: "Mensaje de texto (SMS)", tglSmsSub: "El pedido se abre listo en la app de mensajes del cliente, al número de arriba",
+          tglMailSub: "El pedido se abre listo en el correo del cliente, a la dirección de arriba",
+          setNote: "En los tres canales el pedido se abre listo en el dispositivo del cliente y él confirma el envío; el envío automático sin ese toque depende de proveedor/alojamiento externo.",
+          setSave: "Aplicar datos",
+          priceTitle: "Precios del menú",
+          priceHint: "Edita el precio y se actualiza en la vitrina al instante. Deja 0 para mostrar “consultar precio”.",
+          priceSave: "Aplicar precios",
+          ordHead: "NUEVO PEDIDO", ordItemsLbl: "Ítems:", ordTotalLine: "Total:", ordPayLine: "Forma de pago:", ordNameLine: "Nombre:", ordNotesLine: "Obs.:",
+          mailSubject: "Nuevo pedido — ",
+          addedToCart: "agregado a tu pedido.",
+          cartCleared: "Pedido limpiado.",
+          emptyCartToast: "Tu pedido está vacío — toca “Pedir” en un ítem del menú primero.",
+          chanOffMsg: "Este canal está desactivado en este momento. Prueba otro canal de envío.",
+          chanNotSetWa: "El local aún no configuró el WhatsApp de pedidos. Prueba otro canal.",
+          chanNotSetSms: "El local aún no configuró el número para SMS. Prueba otro canal.",
+          chanNotSetMail: "El local aún no configuró el correo de pedidos. Prueba otro canal.",
+          openingChan: "Abriendo tu pedido listo… solo confirma el envío.",
+          capDup: "Ese correo ya está en la lista — ¡ya recibes las ofertas!",
+          capOk: "Correo registrado: ", capOk2: " entró a la lista de ofertas.",
+          finFill: "Completa fecha, descripción y un valor mayor que cero.",
+          finAdded: " de ", finAdded2: " registrada.", finDeleted: "Registro eliminado.",
+          finNoData: "Todavía no hay registros para exportar.", finCsvOk: "Planilla descargada: entradas-e-saidas.csv",
+          stockFill: "Dale un nombre y una unidad al ítem (paq, caja, kg…).",
+          stockAdded: "Ítem agregado al inventario.", stockRemoved: "Ítem eliminado del inventario.",
+          mailFill: "Completa nombre y un correo válido.", mailDup: "Ese correo ya está en la lista.",
+          mailAdded: " entró a la lista de remarketing.", mailRemoved: "Correo eliminado de la lista.",
+          mailListEmpty: "La lista todavía está vacía.", mailListEmpty2: "La lista todavía está vacía — captura el primer correo en la vitrina.",
+          mailCopied: " correos copiados — pégalos en tu envío de campaña.", mailCopyFail: "No se pudo copiar automáticamente.",
+          mailCopyAlt: "El navegador no permite copia automática — usa el botón de descargar la lista.",
+          mailCsvOk: "Lista descargada: lista-de-emails.csv",
+          mailCampaignSubject: "Oferta de la semana — ", mailOpening: "Abriendo tu correo con la lista en copia oculta…",
+          pricesOk: "Precios actualizados en la vitrina.",
+          settingsOk: "Datos aplicados — los pedidos ahora van a los canales configurados."
+        }
+      };
+      function t(k){ return (I18N[LANG] && I18N[LANG][k]) || I18N.pt[k] || k; }
+      var HOURS_HTML = {
+        pt: "Segunda a sábado, das 11h às 23h.<br />Domingo, das 16h às 23h.<br />Costelão na brasa a partir das 11h30.",
+        en: "Monday to Saturday, 11 AM to 11 PM.<br />Sunday, 4 PM to 11 PM.<br />Ribs on the grill from 11:30 AM.",
+        es: "Lunes a sábado, de 11 a 23 h.<br />Domingo, de 16 a 23 h.<br />Costillar a la brasa desde las 11:30."
+      };
+      var HOURS_TXT = {
+        pt: "Segunda a sábado, das 11h às 23h. Domingo, das 16h às 23h. Costelão na brasa a partir das 11h30.",
+        en: "Monday to Saturday, 11 AM to 11 PM. Sunday, 4 PM to 11 PM. Ribs on the grill from 11:30 AM.",
+        es: "Lunes a sábado, de 11 a 23 h. Domingo, de 16 a 23 h. Costillar a la brasa desde las 11:30."
+      };
+      var MAIL_DEF = {
+        pt: "Olá, {nome}! Aqui é da Lanchonete Sabor Brasileiro. Essa semana tem costelão na brasa com acompanhamentos completos e combo de cachorro-quente com bebida por preço especial. Passa aqui ou pede pelo WhatsApp — a gente te espera!",
+        en: "Hi, {nome}! This is Lanchonete Sabor Brasileiro. This week: grilled ribs with all the classic sides and a hot dog + drink combo at a special price. Stop by or order on WhatsApp — we are waiting for you!",
+        es: "¡Hola, {nome}! Somos de Lanchonete Sabor Brasileiro. Esta semana hay costillar a la brasa con acompañamientos completos y combo de perrito con bebida a precio especial. Pasa por aquí o pide por WhatsApp — ¡te esperamos!"
+      };
+      var PAY = {
+        cash:  {pt:"Dinheiro", en:"Cash", es:"Efectivo"},
+        card:  {pt:"Cartão", en:"Card", es:"Tarjeta"},
+        pix:   {pt:"Pix", en:"Pix", es:"Pix"},
+        zelle: {pt:"Zelle", en:"Zelle", es:"Zelle"},
+        fiado: {pt:"Fiado", en:"On credit", es:"Fiado"}
+      };
+      function payLabel(k){ return (PAY[k] && PAY[k][LANG]) || k; }
+      var CATS = ["Vendas","Mercadoria","Bebidas","Secos","Aluguel","Equipe","Gás e utilidades","Marketing","Outros"];
+      var CAT_LBL = {
+        "Vendas":{pt:"Vendas",en:"Sales",es:"Ventas"},
+        "Mercadoria":{pt:"Mercadoria",en:"Supplies",es:"Mercadería"},
+        "Bebidas":{pt:"Bebidas",en:"Drinks",es:"Bebidas"},
+        "Secos":{pt:"Secos",en:"Dry goods",es:"Secos"},
+        "Aluguel":{pt:"Aluguel",en:"Rent",es:"Alquiler"},
+        "Equipe":{pt:"Equipe",en:"Team",es:"Equipo"},
+        "Gás e utilidades":{pt:"Gás e utilidades",en:"Gas & utilities",es:"Gas y servicios"},
+        "Marketing":{pt:"Marketing",en:"Marketing",es:"Marketing"},
+        "Outros":{pt:"Outros",en:"Other",es:"Otros"}
+      };
+      var GRPS = ["Secos","Bebidas sem álcool","Frios e perecíveis","Limpeza e descartáveis"];
+      var GRP_LBL = {
+        "Secos":{pt:"Secos",en:"Dry goods",es:"Secos"},
+        "Bebidas sem álcool":{pt:"Bebidas sem álcool",en:"Alcohol-free drinks",es:"Bebidas sin alcohol"},
+        "Frios e perecíveis":{pt:"Frios e perecíveis",en:"Cold & perishable",es:"Fríos y perecederos"},
+        "Limpeza e descartáveis":{pt:"Limpeza e descartáveis",en:"Cleaning & disposables",es:"Limpieza y desechables"}
+      };
+      var GROUPS_LBL = {
+        dogs:{pt:"Cachorros-quentes",en:"Hot Dogs",es:"Perritos calientes"},
+        costelao:{pt:"Costelão",en:"Brazilian Ribs",es:"Costillar"},
+        lanches:{pt:"Lanches e porções",en:"Burgers & Sides",es:"Hamburguesas y porciones"},
+        bebidas:{pt:"Bebidas sem álcool",en:"Alcohol-Free Drinks",es:"Bebidas sin alcohol"}
+      };
+
+      /* ==================== DADOS ==================== */
+      function MI(id, preco, img, alt, pt, en, es){
+        return {id:id, preco:preco, img:img||null, alt:alt||"", n:{pt:pt[0],en:en[0],es:es[0]}, d:{pt:pt[1],en:en[1],es:es[1]}};
+      }
+      var MENU = {
+        dogs: [
+          MI('dog1',9,'assets/hotdog.jpg','Cachorro-quente brasileiro completo',
+            ['Dog Tradicional','Salsicha no molho de tomate caseiro, milho, ervilha, vinagrete, maionese e batata palha.'],
+            ['Classic Hot Dog','Sausage in homemade tomato sauce, corn, peas, vinaigrette, mayo and crispy shoestring potatoes.'],
+            ['Perrito Clásico','Salchicha en salsa de tomate casera, maíz, guisantes, vinagreta, mayonesa y papas paja crujientes.']),
+          MI('dog2',13,null,'',
+            ['Dog Completo da Casa','Duas salsichas, queijo, presunto, milho, ervilha, vinagrete, molhos da casa e batata palha generosa.'],
+            ['House Loaded Dog','Two sausages, cheese, ham, corn, peas, vinaigrette, house sauces and a generous layer of shoestring potatoes.'],
+            ['Perrito Completo de la Casa','Dos salchichas, queso, jamón, maíz, guisantes, vinagreta, salsas de la casa y abundantes papas paja.']),
+          MI('dog3',14,null,'',
+            ['Dog Prensado com Bacon','Prensado na chapa até o queijo derreter, com bacon crocante, molho especial e batata palha.'],
+            ['Pressed Bacon Dog','Pressed on the grill until the cheese melts, with crispy bacon, special sauce and shoestring potatoes.'],
+            ['Perrito Prensado con Tocino','Prensado a la plancha hasta derretir el queso, con tocino crujiente, salsa especial y papas paja.']),
+          MI('dog4',13,null,'',
+            ['Dog de Frango com Catupiry','Frango desfiado bem temperado, catupiry cremoso, milho verde e batata palha.'],
+            ['Chicken & Catupiry Dog','Well-seasoned shredded chicken, creamy Catupiry cheese, sweet corn and shoestring potatoes.'],
+            ['Perrito de Pollo con Catupiry','Pollo desmenuzado bien sazonado, queso Catupiry cremoso, maíz y papas paja.'])
+        ],
+        costelao: [
+          MI('cos1',45,'assets/costelao.jpg','Costelão brasileiro assado na brasa, dourado e desmanchando',
+            ['Costelão na Brasa — Serve 2','Costela bovina assada devagar na brasa, acompanhada de arroz branco, feijão tropeiro, vinagrete e farofa da casa.'],
+            ['Grilled Beef Ribs — Serves 2','Beef ribs slow-grilled over charcoal, served with white rice, tropeiro beans, vinaigrette and house farofa.'],
+            ['Costillar a la Brasa — Para 2','Costilla de res asada lentamente a la brasa, acompañada de arroz blanco, frijoles tropeiro, vinagreta y farofa de la casa.']),
+          MI('cos2',24,null,'',
+            ['Costelão Individual','A mesma costela desmanchando, em porção individual com arroz, feijão tropeiro, farofa e vinagrete.'],
+            ['Individual Ribs','The same fall-off-the-bone ribs in a single serving with rice, tropeiro beans, farofa and vinaigrette.'],
+            ['Costillar Individual','El mismo costillar que se deshace, en porción individual con arroz, frijoles tropeiro, farofa y vinagreta.']),
+          MI('cos3',7,null,'',
+            ['Mandioca Frita da Casa','O acompanhamento clássico do costelão: mandioca macia por dentro, crocante por fora, com sal grosso.'],
+            ['House Fried Cassava','The classic ribs sidekick: soft inside, crispy outside, with coarse salt.'],
+            ['Yuca Frita de la Casa','El acompañamiento clásico del costillar: suave por dentro, crujiente por fuera, con sal gruesa.'])
+        ],
+        lanches: [
+          MI('lan1',18,'assets/burger.jpg','Lanche artesanal com hambúrguer, queijo e salada',
+            ['X-Tudo Artesanal','Hambúrguer artesanal de 180g, queijo, presunto, ovo, bacon, alface, tomate e maionese da casa no pão brioche.'],
+            ['Artisan X-Tudo Burger','6.3 oz artisan beef patty, cheese, ham, egg, bacon, lettuce, tomato and house mayo on a brioche bun.'],
+            ['Hamburguesa Artesanal X-Tudo','Carne artesanal de 180 g, queso, jamón, huevo, tocino, lechuga, tomate y mayonesa de la casa en pan brioche.']),
+          MI('lan2',9,'assets/batata.jpg','Porção de batata frita crocante temperada',
+            ['Batata Frita Crocante','Porção generosa de batata palitinho crocante com o tempero da casa e molho especial à parte.'],
+            ['Crispy French Fries','A generous portion of crispy fries with house seasoning and special sauce on the side.'],
+            ['Papas Fritas Crujientes','Porción generosa de papas fritas crujientes con el sazón de la casa y salsa especial aparte.']),
+          MI('lan3',14,null,'',
+            ['Batata com Cheddar e Bacon','Nossa batata crocante coberta de cheddar cremoso e bacon crocante picadinho.'],
+            ['Cheddar & Bacon Fries','Our crispy fries topped with creamy cheddar and crunchy bacon bits.'],
+            ['Papas con Cheddar y Tocino','Nuestras papas crujientes cubiertas de cheddar cremoso y tocino crujiente picado.']),
+          MI('lan4',15,null,'',
+            ['Calabresa Acebolada','Calabresa fatiada na chapa com cebola dourada — pra petiscar ou acompanhar o costelão.'],
+            ['Calabresa with Onions','Sliced calabresa sausage grilled with golden onions — great for snacking or alongside the ribs.'],
+            ['Calabresa con Cebolla','Calabresa en rodajas a la plancha con cebolla dorada — para picar o acompañar el costillar.'])
+        ],
+        bebidas: [
+          MI('beb1',3.5,null,'',
+            ['Refrigerante Lata 350ml','Coca-Cola, Guaraná Antarctica, Fanta Laranja ou Sprite — sempre trincando de gelado.'],
+            ['Soda Can 12 oz','Coca-Cola, Guaraná Antarctica, Orange Fanta or Sprite — always ice cold.'],
+            ['Refresco en Lata 350 ml','Coca-Cola, Guaraná Antarctica, Fanta Naranja o Sprite — siempre bien frío.']),
+          MI('beb2',6,null,'',
+            ['Suco Natural 500ml','Laranja, maracujá ou limonada suíça, feito na hora.'],
+            ['Fresh Juice 16 oz','Orange, passion fruit or Swiss lemonade, made to order.'],
+            ['Jugo Natural 500 ml','Naranja, maracuyá o limonada suiza, hecho al momento.']),
+          MI('beb3',5,null,'',
+            ['Água de Coco 500ml','Geladinha, do jeito que combina com costelão.'],
+            ['Coconut Water 16 oz','Nice and cold — the perfect match for grilled ribs.'],
+            ['Agua de Coco 500 ml','Bien fría, como combina con el costillar.']),
+          MI('beb4',9,null,'',
+            ['Refrigerante 2 Litros','Pra acompanhar o costelão da família toda.'],
+            ['Soda 2 Liters','To go with the ribs for the whole family.'],
+            ['Refresco 2 Litros','Para acompañar el costillar de toda la familia.']),
+          MI('beb5',2,null,'',
+            ['Água Mineral 500ml','Com ou sem gás.'],
+            ['Mineral Water 16 oz','Still or sparkling.'],
+            ['Agua Mineral 500 ml','Con o sin gas.'])
+        ]
+      };
+      function itemName(it){ return it.n[LANG] || it.n.pt; }
+      function itemDesc(it){ return it.d[LANG] || it.d.pt; }
+      function findItem(id){
+        var all = MENU.dogs.concat(MENU.costelao, MENU.lanches, MENU.bebidas);
+        for(var i=0;i<all.length;i++){ if(all[i].id===id) return all[i]; }
+        return null;
+      }
+
+      var state = {
+        nome: 'Lanchonete Sabor Brasileiro',
+        whatsapp: '', sms: '', orderEmail: '',
+        channels: {wa:true, sms:true, mail:true},
+        cart: [], payment: 'cash',
+        entries: [],
+        stock: [
+          {nome:'Salsicha p/ cachorro-quente', grupo:'Frios e perecíveis', un:'kg', qtd:12, min:4},
+          {nome:'Pão de cachorro-quente', grupo:'Secos', un:'pct', qtd:9, min:3},
+          {nome:'Batata palha', grupo:'Secos', un:'pct', qtd:6, min:4},
+          {nome:'Milho verde (lata)', grupo:'Secos', un:'un', qtd:18, min:8},
+          {nome:'Costela bovina (costelão)', grupo:'Frios e perecíveis', un:'kg', qtd:15, min:6},
+          {nome:'Feijão carioca', grupo:'Secos', un:'kg', qtd:10, min:4},
+          {nome:'Farinha de mandioca (farofa)', grupo:'Secos', un:'kg', qtd:5, min:2},
+          {nome:'Refrigerante lata 350ml', grupo:'Bebidas sem álcool', un:'un', qtd:36, min:24},
+          {nome:'Refrigerante 2 litros', grupo:'Bebidas sem álcool', un:'un', qtd:8, min:6},
+          {nome:'Água mineral 500ml', grupo:'Bebidas sem álcool', un:'un', qtd:20, min:12},
+          {nome:'Guardanapo e descartáveis', grupo:'Limpeza e descartáveis', un:'pct', qtd:4, min:2}
+        ],
+        emails: []
+      };
+
+      /* ==================== HELPERS ==================== */
+      function $(id){ return document.getElementById(id); }
+      function money(v){ return '$' + Number(v||0).toFixed(2); }
+      function todayStr(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+      function monthStr(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
+      function fmtDate(s){ if(!s) return ''; var p=s.split('-'); return LANG==='en' ? (p[1]+'/'+p[2]+'/'+p[0]) : (p[2]+'/'+p[1]+'/'+p[0]); }
+      var toastTimer=null;
+      function toast(msg){ var tEl=$('toast'); tEl.textContent=msg; tEl.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(function(){ tEl.classList.remove('show'); }, 3400); }
+      function digits(s){ return String(s||'').replace(/\D/g,''); }
+      function downloadCsv(nome, conteudo){
+        var blob = new Blob(['\ufeff'+conteudo], {type:'text/csv;charset=utf-8'});
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob); a.download = nome;
+        document.body.appendChild(a); a.click();
+        setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 400);
+      }
+      function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+      /* ==================== IDIOMA: APLICAÇÃO ==================== */
+      function fillSelect(sel, opts){
+        var cur = sel.value;
+        sel.innerHTML = opts.map(function(o){ return '<option value="'+esc(o.v)+'">'+esc(o.l)+'</option>'; }).join('');
+        var found = opts.some(function(o){ return o.v===cur; });
+        if(found) sel.value = cur;
+      }
+      function refreshSelects(){
+        fillSelect($('fTipo'), [{v:'in',l:t('typeIn')},{v:'out',l:t('typeOut')}]);
+        fillSelect($('fCat'), CATS.map(function(c){ return {v:c, l:(CAT_LBL[c]||{})[LANG]||c}; }));
+        fillSelect($('fPag'), Object.keys(PAY).map(function(k){ return {v:k, l:payLabel(k)}; }));
+        fillSelect($('sGrupo'), GRPS.map(function(g){ return {v:g, l:(GRP_LBL[g]||{})[LANG]||g}; }));
+      }
+      function applyLang(){
+        document.documentElement.lang = LANG==='pt' ? 'pt-BR' : LANG;
+        document.querySelectorAll('[data-i18n]').forEach(function(el){ el.textContent = t(el.getAttribute('data-i18n')); });
+        document.querySelectorAll('[data-i18n-ph]').forEach(function(el){ el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph'))); });
+        $('brandSub').textContent = t('brandSub');
+        $('heroTitle').innerHTML = t('heroTitle');
+        if(!state.hoursCustom){
+          $('infoHours').innerHTML = HOURS_HTML[LANG];
+          $('setHours').value = HOURS_TXT[LANG];
+        }
+        if(!state.mailCustom){ $('mailMsg').value = MAIL_DEF[LANG]; }
+        document.querySelectorAll('.langswitch button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.lang===LANG)); });
+        refreshSelects();
+        renderBrand(); renderMenu(); renderCart(); renderFinance(); renderStock(); renderEmails(); renderPriceEditor();
+      }
+      document.querySelectorAll('.langswitch button').forEach(function(b){
+        b.addEventListener('click', function(){ LANG = b.dataset.lang; applyLang(); });
+      });
+
+      /* ==================== VITRINE ==================== */
+      function priceHtml(item){
+        if(!item.preco || item.preco<=0) return '<span class="price"><small>'+esc(t('priceAsk'))+'</small></span>';
+        return '<span class="price">'+money(item.preco)+'</span>';
+      }
+      function renderMenu(){
+        function card(item){
+          var img = item.img ? '<img src="'+item.img+'" alt="'+esc(item.alt||itemName(item))+'" loading="lazy" />' : '';
+          return '<article class="dish">'+img+'<div class="dish-body"><h3>'+esc(itemName(item))+'</h3><p>'+esc(itemDesc(item))+'</p>'+
+            '<div class="dish-foot">'+priceHtml(item)+
+            '<button class="order-btn" type="button" data-add="'+item.id+'">'+esc(t('orderBtn'))+'</button></div></div></article>';
+        }
+        $('gridDogs').innerHTML = MENU.dogs.map(card).join('');
+        $('gridCostelao').innerHTML = MENU.costelao.map(card).join('');
+        $('gridLanches').innerHTML = MENU.lanches.map(card).join('');
+        $('listBebidas').innerHTML = MENU.bebidas.map(function(item){
+          return '<div class="dish-row"><div class="info"><h3>'+esc(itemName(item))+'</h3><p>'+esc(itemDesc(item))+'</p></div>'+priceHtml(item)+
+            '<button class="order-btn" type="button" data-add="'+item.id+'">'+esc(t('orderBtn'))+'</button></div>';
+        }).join('');
+        document.querySelectorAll('[data-add]').forEach(function(b){
+          b.addEventListener('click', function(){ addToCart(b.dataset.add); });
+        });
+      }
+      function renderBrand(){
+        $('brandName').textContent = state.nome;
+        $('footName').textContent = state.nome;
+        document.title = state.nome + ' — ' + t('docSuffix');
+      }
+
+      /* ==================== PEDIDO / CARRINHO ==================== */
+      function cartQty(){ return state.cart.reduce(function(s,c){ return s+c.qty; },0); }
+      function cartTotal(){ return state.cart.reduce(function(s,c){ var it=findItem(c.id); return s + (it? it.preco*c.qty : 0); },0); }
+      function addToCart(id){
+        var found=null;
+        state.cart.forEach(function(c){ if(c.id===id) found=c; });
+        if(found) found.qty++; else state.cart.push({id:id, qty:1});
+        renderCart();
+        var it=findItem(id);
+        toast((it? itemName(it):'') + ' ' + t('addedToCart'));
+        $('pedido').scrollIntoView({behavior:'smooth', block:'start'});
+      }
+      function orderText(){
+        var lines = [t('ordHead') + ' — ' + state.nome];
+        var nome = $('ordNome').value.trim();
+        if(nome) lines.push(t('ordNameLine') + ' ' + nome);
+        lines.push(t('ordItemsLbl'));
+        state.cart.forEach(function(c){
+          var it=findItem(c.id); if(!it) return;
+          lines.push('• ' + c.qty + '× ' + itemName(it) + ' — ' + money(it.preco*c.qty));
+        });
+        lines.push(t('ordTotalLine') + ' ' + money(cartTotal()));
+        lines.push(t('ordPayLine') + ' ' + payLabel(state.payment));
+        var obs = $('ordObs').value.trim();
+        if(obs) lines.push(t('ordNotesLine') + ' ' + obs);
+        return lines.join('\n');
+      }
+      function channelHref(ch){
+        var txt = orderText();
+        if(ch==='wa'){ var n=digits(state.whatsapp); return n ? 'https://wa.me/'+n+'?text='+encodeURIComponent(txt) : ''; }
+        if(ch==='sms'){ var n2=digits(state.sms); return n2 ? 'sms:+'+n2+'?&body='+encodeURIComponent(txt) : ''; }
+        var em = state.orderEmail.trim();
+        return em ? 'mailto:'+em+'?subject='+encodeURIComponent(t('mailSubject')+state.nome)+'&body='+encodeURIComponent(txt) : '';
+      }
+      function renderCart(){
+        var has = state.cart.length>0;
+        $('cartEmpty').style.display = has ? 'none' : 'block';
+        $('cartList').innerHTML = state.cart.map(function(c){
+          var it=findItem(c.id); if(!it) return '';
+          return '<div class="cart-row"><div class="cinfo"><strong>'+esc(itemName(it))+'</strong><span>'+money(it.preco)+' × '+c.qty+'</span></div>'+
+            '<span class="qty-ctrl"><button type="button" data-cdec="'+c.id+'" aria-label="−">−</button><span class="qty">'+c.qty+'</span><button type="button" data-cinc="'+c.id+'" aria-label="+">+</button></span>'+
+            '<span class="cline">'+money(it.preco*c.qty)+'</span>'+
+            '<button class="row-del" type="button" data-cdel="'+c.id+'">'+esc(t('removeBtn'))+'</button></div>';
+        }).join('');
+        $('ordTotal').textContent = money(cartTotal());
+        document.querySelectorAll('[data-cinc]').forEach(function(b){ b.addEventListener('click', function(){ state.cart.forEach(function(c){ if(c.id===b.dataset.cinc) c.qty++; }); renderCart(); }); });
+        document.querySelectorAll('[data-cdec]').forEach(function(b){ b.addEventListener('click', function(){ state.cart.forEach(function(c){ if(c.id===b.dataset.cdec && c.qty>1) c.qty--; }); renderCart(); }); });
+        document.querySelectorAll('[data-cdel]').forEach(function(b){ b.addEventListener('click', function(){ state.cart = state.cart.filter(function(c){ return c.id!==b.dataset.cdel; }); renderCart(); }); });
+        var bar=$('cartBar');
+        bar.classList.toggle('hidden', !has);
+        $('cartBarInfo').textContent = has ? (cartQty() + ' • ' + money(cartTotal())) : '';
+        /* canais */
+        var map = {wa:'sendWa', sms:'sendSms', mail:'sendMail'};
+        Object.keys(map).forEach(function(ch){
+          var a=$(map[ch]);
+          var on = !!state.channels[ch];
+          a.style.display = on ? '' : 'none';
+          var href = on ? channelHref(ch) : '';
+          a.setAttribute('href', href || '#');
+          a.classList.toggle('is-off', !href);
+          a.dataset.chan = ch;
+        });
+      }
+      document.querySelectorAll('#payOpts button').forEach(function(b){
+        b.addEventListener('click', function(){
+          state.payment = b.dataset.pay;
+          document.querySelectorAll('#payOpts button').forEach(function(x){ x.setAttribute('aria-pressed', String(x===b)); });
+          renderCart();
+        });
+      });
+      $('ordNome').addEventListener('input', renderCart);
+      $('ordObs').addEventListener('input', renderCart);
+      $('cartClear').addEventListener('click', function(){ state.cart=[]; renderCart(); toast(t('cartCleared')); });
+      $('cartBar').addEventListener('click', function(){ $('pedido').scrollIntoView({behavior:'smooth', block:'start'}); });
+      ['sendWa','sendSms','sendMail'].forEach(function(id){
+        $(id).addEventListener('click', function(e){
+          var ch = $(id).dataset.chan;
+          if(!state.cart.length){ e.preventDefault(); toast(t('emptyCartToast')); return; }
+          var href = channelHref(ch);
+          if(!href){
+            e.preventDefault();
+            toast(ch==='wa' ? t('chanNotSetWa') : (ch==='sms' ? t('chanNotSetSms') : t('chanNotSetMail')));
+            return;
+          }
+          toast(t('openingChan'));
+        });
+      });
+
+      /* ==================== CAPTURA DE E-MAIL ==================== */
+      $('captureForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        var nome = $('capNome').value.trim();
+        var email = $('capEmail').value.trim().toLowerCase();
+        if(!nome || !email) return;
+        if(state.emails.some(function(x){ return x.email===email; })){
+          toast(t('capDup'));
+          $('captura').classList.add('done'); return;
+        }
+        state.emails.push({nome:nome, email:email, origem:'vitrine', data:todayStr()});
+        $('captura').classList.add('done');
+        renderEmails();
+        toast(t('capOk') + nome + t('capOk2'));
+      });
+
+      /* ==================== TROCA DE VISÃO ==================== */
+      function setView(painel){
+        $('viewVitrine').classList.toggle('hidden', painel);
+        $('viewPainel').classList.toggle('hidden', !painel);
+        $('tabVitrine').setAttribute('aria-pressed', String(!painel));
+        $('tabPainel').setAttribute('aria-pressed', String(painel));
+        if(painel) $('cartBar').classList.add('hidden'); else renderCart();
+        window.scrollTo({top:0});
+      }
+      $('tabVitrine').addEventListener('click', function(){ setView(false); });
+      $('tabPainel').addEventListener('click', function(){ setView(true); });
+
+      var subBtns = document.querySelectorAll('.subtabs button');
+      subBtns.forEach(function(b){
+        b.addEventListener('click', function(){
+          subBtns.forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+          b.setAttribute('aria-pressed','true');
+          ['fin','stock','mail','menu'].forEach(function(k){ $('sub-'+k).classList.toggle('hidden', k!==b.dataset.sub); });
+        });
+      });
+
+      /* ==================== FINANCEIRO ==================== */
+      $('fData').value = todayStr();
+      $('fMes').value = monthStr();
+
+      function renderFinance(){
+        var mes = $('fMes').value || monthStr();
+        var hoje = todayStr();
+        var inMes=0, outMes=0, saldoHoje=0;
+        state.entries.forEach(function(en){
+          if(en.data.slice(0,7)===mes){ if(en.tipo==='in') inMes+=en.valor; else outMes+=en.valor; }
+          if(en.data===hoje){ saldoHoje += (en.tipo==='in'? en.valor : -en.valor); }
+        });
+        $('kpiIn').textContent = money(inMes);
+        $('kpiOut').textContent = money(outMes);
+        $('kpiMonth').textContent = money(inMes-outMes);
+        $('kpiDay').textContent = money(saldoHoje);
+        var rows = state.entries.filter(function(en){ return en.data.slice(0,7)===mes; })
+          .sort(function(a,b){ return a.data<b.data ? 1 : -1; });
+        $('finEmpty').style.display = rows.length ? 'none' : 'block';
+        $('finBody').innerHTML = rows.map(function(en){
+          var idx = state.entries.indexOf(en);
+          var catLbl = (CAT_LBL[en.cat]||{})[LANG] || en.cat;
+          return '<tr><td>'+fmtDate(en.data)+'</td><td>'+esc(en.desc)+'</td><td>'+esc(catLbl)+'</td><td>'+esc(payLabel(en.pag))+'</td>'+
+            '<td><span class="pill '+(en.tipo==='in'?'in':'out')+'">'+(en.tipo==='in'?t('typeIn'):t('typeOut'))+'</span></td>'+
+            '<td class="num" style="font-weight:800;color:var(--'+(en.tipo==='in'?'green':'red')+')">'+(en.tipo==='in'?'+':'−')+' '+money(en.valor)+'</td>'+
+            '<td><button class="row-del" data-del-fin="'+idx+'" type="button">'+esc(t('del'))+'</button></td></tr>';
+        }).join('');
+        document.querySelectorAll('[data-del-fin]').forEach(function(btn){
+          btn.addEventListener('click', function(){
+            state.entries.splice(Number(btn.dataset.delFin),1);
+            renderFinance(); toast(t('finDeleted'));
+          });
+        });
+      }
+      $('finAdd').addEventListener('click', function(){
+        var data=$('fData').value, desc=$('fDesc').value.trim(), valor=parseFloat($('fValor').value);
+        if(!data || !desc || !(valor>0)){ toast(t('finFill')); return; }
+        state.entries.push({data:data, tipo:$('fTipo').value, desc:desc, cat:$('fCat').value, valor:valor, pag:$('fPag').value});
+        $('fDesc').value=''; $('fValor').value='';
+        if(data.slice(0,7) !== $('fMes').value) $('fMes').value = data.slice(0,7);
+        renderFinance();
+        toast(($('fTipo').value==='in'?t('typeIn'):t('typeOut')) + t('finAdded') + money(valor) + t('finAdded2'));
+      });
+      $('fMes').addEventListener('change', renderFinance);
+      $('finCsv').addEventListener('click', function(){
+        if(!state.entries.length){ toast(t('finNoData')); return; }
+        var linhas = ['Data;Tipo;Descricao;Categoria;Pagamento;Valor'];
+        state.entries.slice().sort(function(a,b){ return a.data<b.data?-1:1; }).forEach(function(en){
+          linhas.push([en.data, en.tipo==='in'?'Entrada':'Saida', '"'+en.desc.replace(/"/g,'""')+'"', en.cat, payLabel(en.pag), en.valor.toFixed(2).replace('.',',')].join(';'));
+        });
+        downloadCsv('entradas-e-saidas.csv', linhas.join('\n'));
+        toast(t('finCsvOk'));
+      });
+
+      /* ==================== ESTOQUE ==================== */
+      function lowCount(){ return state.stock.filter(function(s){ return s.qtd <= s.min; }).length; }
+      function renderStock(){
+        $('stockBody').innerHTML = state.stock.map(function(s, i){
+          var low = s.qtd <= s.min;
+          var grp = (GRP_LBL[s.grupo]||{})[LANG] || s.grupo;
+          return '<tr><td><strong>'+esc(s.nome)+'</strong></td><td>'+esc(grp)+'</td><td>'+esc(s.un)+'</td>'+
+            '<td class="num"><span class="stock-actions" style="justify-content:flex-end"><button type="button" data-dec="'+i+'" aria-label="−">−</button><span class="qty">'+s.qtd+'</span><button type="button" data-inc="'+i+'" aria-label="+">+</button></span></td>'+
+            '<td class="num">'+s.min+'</td>'+
+            '<td><span class="pill '+(low?'low':'okk')+'">'+(low?t('lowPill'):'OK')+'</span></td>'+
+            '<td><button class="row-del" data-del-stock="'+i+'" type="button">'+esc(t('del'))+'</button></td></tr>';
+        }).join('');
+        document.querySelectorAll('[data-inc]').forEach(function(b){ b.addEventListener('click', function(){ state.stock[Number(b.dataset.inc)].qtd++; renderStock(); }); });
+        document.querySelectorAll('[data-dec]').forEach(function(b){ b.addEventListener('click', function(){ var s=state.stock[Number(b.dataset.dec)]; if(s.qtd>0) s.qtd--; renderStock(); }); });
+        document.querySelectorAll('[data-del-stock]').forEach(function(b){ b.addEventListener('click', function(){ state.stock.splice(Number(b.dataset.delStock),1); renderStock(); toast(t('stockRemoved')); }); });
+        var n = lowCount();
+        var badge = $('alertBadge');
+        badge.textContent = n; badge.classList.toggle('hidden', n===0);
+      }
+      $('stockAdd').addEventListener('click', function(){
+        var nome=$('sNome').value.trim(), un=$('sUn').value.trim();
+        if(!nome || !un){ toast(t('stockFill')); return; }
+        state.stock.push({nome:nome, grupo:$('sGrupo').value, un:un, qtd:Math.max(0, parseInt($('sQtd').value||'0',10)), min:Math.max(0, parseInt($('sMin').value||'0',10))});
+        $('sNome').value=''; $('sUn').value=''; $('sQtd').value='0';
+        renderStock(); toast(t('stockAdded'));
+      });
+
+      /* ==================== E-MAILS / REMARKETING ==================== */
+      function renderEmails(){
+        var badge = $('mailCount');
+        badge.textContent = state.emails.length;
+        badge.classList.toggle('hidden', state.emails.length===0);
+        $('mailEmpty').style.display = state.emails.length ? 'none' : 'block';
+        $('mailBody').innerHTML = state.emails.map(function(m, i){
+          var org = m.origem==='vitrine' ? t('originStore') : t('originManual');
+          return '<tr><td><strong>'+esc(m.nome)+'</strong></td><td>'+esc(m.email)+'</td><td>'+esc(org)+'</td><td>'+fmtDate(m.data)+'</td>'+
+            '<td><button class="row-del" data-del-mail="'+i+'" type="button">'+esc(t('removeBtn'))+'</button></td></tr>';
+        }).join('');
+        document.querySelectorAll('[data-del-mail]').forEach(function(b){
+          b.addEventListener('click', function(){ state.emails.splice(Number(b.dataset.delMail),1); renderEmails(); toast(t('mailRemoved')); });
+        });
+      }
+      $('mailMsg').addEventListener('input', function(){ state.mailCustom = true; });
+      $('mailAdd').addEventListener('click', function(){
+        var nome=$('mNome').value.trim(), email=$('mEmail').value.trim().toLowerCase();
+        if(!nome || !email || email.indexOf('@')<0){ toast(t('mailFill')); return; }
+        if(state.emails.some(function(x){ return x.email===email; })){ toast(t('mailDup')); return; }
+        state.emails.push({nome:nome, email:email, origem:'manual', data:todayStr()});
+        $('mNome').value=''; $('mEmail').value='';
+        renderEmails(); toast(nome + t('mailAdded'));
+      });
+      $('mailCopy').addEventListener('click', function(){
+        if(!state.emails.length){ toast(t('mailListEmpty')); return; }
+        var txt = state.emails.map(function(m){ return m.email; }).join(', ');
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(txt).then(function(){ toast(state.emails.length + t('mailCopied')); }, function(){ toast(t('mailCopyFail')); });
+        } else { toast(t('mailCopyAlt')); }
+      });
+      $('mailCsv').addEventListener('click', function(){
+        if(!state.emails.length){ toast(t('mailListEmpty')); return; }
+        var linhas=['Nome;Email;Origem;Data'];
+        state.emails.forEach(function(m){ linhas.push(['"'+m.nome.replace(/"/g,'""')+'"', m.email, m.origem, m.data].join(';')); });
+        downloadCsv('lista-de-emails.csv', linhas.join('\n'));
+        toast(t('mailCsvOk'));
+      });
+      $('mailSend').addEventListener('click', function(){
+        if(!state.emails.length){ toast(t('mailListEmpty2')); return; }
+        var msg = $('mailMsg').value.replace(/\{nome\}/gi, 'cliente');
+        var bcc = state.emails.map(function(m){ return m.email; }).join(',');
+        var href = 'mailto:?bcc='+encodeURIComponent(bcc)+'&subject='+encodeURIComponent(t('mailCampaignSubject')+state.nome)+'&body='+encodeURIComponent(msg);
+        var a = document.createElement('a'); a.href = href; document.body.appendChild(a); a.click(); a.remove();
+        toast(t('mailOpening'));
+      });
+
+      /* ==================== CARDÁPIO E AJUSTES ==================== */
+      function allItems(){
+        var out=[];
+        [['dogs',MENU.dogs],['costelao',MENU.costelao],['lanches',MENU.lanches],['bebidas',MENU.bebidas]].forEach(function(pair){
+          pair[1].forEach(function(it){ out.push({grupo:GROUPS_LBL[pair[0]][LANG]||pair[0], item:it}); });
+        });
+        return out;
+      }
+      function renderPriceEditor(){
+        var lastGrupo='';
+        $('priceEditor').innerHTML = allItems().map(function(row){
+          var head = row.grupo!==lastGrupo ? '<h3 style="margin:18px 0 8px;font-size:1rem">'+esc(row.grupo)+'</h3>' : '';
+          lastGrupo = row.grupo;
+          return head+'<div class="field" style="display:flex;align-items:center;gap:12px;margin-bottom:8px"><label style="flex:1;margin:0;color:var(--ink)">'+esc(itemName(row.item))+'</label>'+
+            '<span style="color:var(--ink2);font-weight:700">$</span><input type="number" min="0" step="0.5" value="'+row.item.preco+'" data-price="'+row.item.id+'" style="width:110px;border:1.5px solid var(--line);border-radius:10px;padding:10px;background:var(--bg)" /></div>';
+        }).join('');
+      }
+      $('priceSave').addEventListener('click', function(){
+        document.querySelectorAll('[data-price]').forEach(function(inp){
+          var v = parseFloat(inp.value);
+          allItems().forEach(function(row){ if(row.item.id===inp.dataset.price) row.item.preco = isNaN(v)?0:v; });
+        });
+        renderMenu(); renderCart();
+        toast(t('pricesOk'));
+      });
+      $('setHours').addEventListener('input', function(){ state.hoursCustom = true; });
+      $('setSave').addEventListener('click', function(){
+        state.nome = $('setNome').value.trim() || state.nome;
+        state.whatsapp = $('setWa').value.trim();
+        state.sms = $('setSms').value.trim();
+        state.orderEmail = $('setOrderMail').value.trim();
+        state.channels = { wa: $('tglWa').checked, sms: $('tglSms').checked, mail: $('tglMail').checked };
+        var h = $('setHours').value.trim();
+        if(h && state.hoursCustom){ $('infoHours').innerHTML = esc(h); }
+        renderBrand(); renderMenu(); renderCart();
+        toast(t('settingsOk'));
+      });
+
+      /* ==================== INÍCIO ==================== */
+      state.hoursCustom = false; state.mailCustom = false;
+      $('mailMsg').value = MAIL_DEF.pt;
+      $('setHours').value = HOURS_TXT.pt;
+      applyLang();
+    </script>
+  </body>
+</html>
